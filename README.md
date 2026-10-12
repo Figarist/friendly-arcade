@@ -80,7 +80,7 @@
 Дизайн-система успішно живить два великих відкритих EdTech-проєкти:
 
 1. **[LEGO WeDo 2.0 Catalog](https://sivochka.com/lego-catalog/)** — відкритий офлайн PWA-каталог інструкцій для вчителів робототехніки та STEM-шкіл.
-2. **[3D Club Studio v2.0.0](https://github.com/Figarist/3d-club-studio)** — автономна тривимірна CAD-студія моделювання для школярів на базі Three.js r128.
+2. **[3D Club Studio v2.0.0](https://sivochka.com/3d-club-studio/)** ([GitHub](https://github.com/Figarist/3d-club-studio)) — автономна тривимірна CAD-студія моделювання для школярів на базі Three.js r128.
 
 ---
 
@@ -94,6 +94,18 @@
 * `.arcade-grid` — самоадаптивна сітка без медіа-запитів (`repeat(auto-fill, minmax(...))`).
 * `.arcade-modal` — доступні модальні вікна із круглим ✕ та обмеженням 90vh.
 * `.arcade-toast` — спливаючі повідомлення успіху.
+
+---
+
+## 📚 Повна Документація Проєкту
+
+Для розробників та AI-агентів у репозиторії створено повний комплект специфікацій:
+
+* 🤖 [**AGENTS.md**](AGENTS.md) — Головний операційний контракт для AI-агентів (Antigravity) з правилами чистоти коду та картою токенів.
+* 📐 [**docs/ARCHITECTURE.md**](docs/ARCHITECTURE.md) — Глибокий аналіз архітектурних шарів, математика формул WCAG AAA та фізика анімацій.
+* 🧩 [**docs/COMPONENTS.md**](docs/COMPONENTS.md) — Каталог усіх компонентів із готовими HTML-шаблонами для копіювання.
+* 🔌 [**docs/INTEGRATION_GUIDE.md**](docs/INTEGRATION_GUIDE.md) — Покроковий посібник інтеграції у сторонні веб-сайти та PWA.
+* 📜 [**docs/ECOSYSTEM_MIGRATION_LOG.md**](docs/ECOSYSTEM_MIGRATION_LOG.md) — Детальний журнал того, що було взято та змінено в LEGO WeDo 2.0 Catalog та 3D Club Studio v2.0.0.
 
 ---
 
