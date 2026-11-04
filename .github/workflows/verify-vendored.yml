@@ -1,0 +1,47 @@
+# Reusable check for sites that keep a copy of Friendly Arcade in their repo (no build step).
+# In the consumer:
+#   jobs:
+#     friendly-arcade:
+#       uses: Figarist/friendly-arcade/.github/workflows/verify-vendored.yml@v2
+# It fails when the copy differs from the tag in vendor/friendly-arcade/VERSION,
+# and leaves a notice when a newer release exists.
+name: Verify vendored Friendly Arcade
+
+on:
+  workflow_call:
+    inputs:
+      path:
+        description: Folder with the copied layers and the VERSION file
+        type: string
+        default: vendor/friendly-arcade
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Copy matches the pinned release
+        env:
+          DIR: ${{ inputs.path }}
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="$(tr -d '[:space:]' < "$DIR/VERSION")"
+          echo "Pinned: friendly-arcade $TAG"
+          status=0
+          for f in "$DIR"/*.css; do
+            name="$(basename "$f")"
+            if ! curl -fsSL "https://raw.githubusercontent.com/Figarist/friendly-arcade/$TAG/$name" | cmp -s - "$f"; then
+              echo "::error file=$f::$name differs from friendly-arcade $TAG. Don't edit the copy; run scripts/update-friendly-arcade.sh"
+              status=1
+            fi
+          done
+          LATEST="$(gh api repos/Figarist/friendly-arcade/releases/latest --jq .tag_name || true)"
+          if [ -n "$LATEST" ] && [ "$LATEST" != "$TAG" ]; then
+            echo "::notice::friendly-arcade $LATEST is available (pinned $TAG). Update with: scripts/update-friendly-arcade.sh $LATEST"
+          fi
+          exit $status
