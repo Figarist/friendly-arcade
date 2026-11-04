@@ -1,63 +1,73 @@
-# 🔌 Посібник Інтеграції Friendly Arcade UI
+# 🔌 Посібник інтеграції Friendly Arcade UI
 
-> Інструкція з підключення та використання дизайн-системи у нових та існуючих проєктах автора чи сторонніх розробників.
+Правило одне: **копії токенів у проєктах не пишуться руками.** Проєкт або ставить пакет, або тримає байт-у-байт копію, яку звіряє CI. Так палітра не розходиться між сайтами, а оновлення — це одна команда.
 
----
+## 1. Проєкт із Vite / npm
 
-## 1. Базове Підключення (Zero Build Step)
+```bash
+npm install github:Figarist/friendly-arcade#v2.1.0
+```
 
-Оскільки дизайн-система не вимагає Node.js або збирачів, інтеграція займає рівно 1 хвилину:
+```css
+/* перший рядок головного CSS */
+@import 'friendly-arcade/tokens.css';
+/* за потреби: */
+@import 'friendly-arcade/base.css';
+@import 'friendly-arcade/components.css';
+```
 
-1. Скопіюйте [`friendly-arcade.css`](../friendly-arcade.css) у свій проєкт (наприклад, у папку `css/` або в корінь).
-2. Підключіть у тег `<head>` вашого HTML:
-   ```html
-   <link rel="stylesheet" href="friendly-arcade.css">
+* Vite вбудовує файли у збірку: жодних CDN, сайт працює офлайн.
+* Закріплюйте тег, а не гілку. Оновлення: змініть тег у `package.json` (або `npm install github:Figarist/friendly-arcade#vX.Y.Z`), запустіть тести, подивіться сайт у браузері.
+* Свої назви змінних мапте на токени в одному місці (`--panel: var(--bg2);`), а не переписуйте всі правила одразу.
+
+## 2. Статичний сайт без збирача
+
+1. Скопіюйте [`scripts/update-friendly-arcade.sh`](../scripts/update-friendly-arcade.sh) у свій репозиторій як `scripts/update-friendly-arcade.sh` і запустіть:
+
+   ```bash
+   scripts/update-friendly-arcade.sh v2.1.0
    ```
-3. Готово! Усі CSS-змінні `:root`, стилі заголовків, кнопок, карток та контур фокусу вже працюють.
 
----
+   З'явиться `vendor/friendly-arcade/` з `tokens.css`, `base.css`, `components.css` і `VERSION`.
 
-## 2. Підключення у проєкт із власними стилями
+2. Підключіть шари **перед** своїми стилями:
 
-Якщо у вашому проєкті вже є специфічні стилі (як `app.css` у каталозі LEGO або `styles.css` у 3D Кузні):
+   ```html
+   <link rel="stylesheet" href="vendor/friendly-arcade/tokens.css">
+   <link rel="stylesheet" href="app.css">
+   ```
+
+3. Додайте перевірку в `.github/workflows/friendly-arcade.yml`:
+
+   ```yaml
+   name: Friendly Arcade
+   on: [push, workflow_dispatch]
+   jobs:
+     verify:
+       uses: Figarist/friendly-arcade/.github/workflows/verify-vendored.yml@v2
+   ```
+
+   Вона падає, якщо копію хтось поправив руками, і пише підказку, коли вийшла нова версія.
+
+4. Якщо є Service Worker, додайте файли з `vendor/friendly-arcade/` у список кешу і піднімайте версію кешу після оновлення.
+
+Чому копія, а не git submodule: архів «Download ZIP» з GitHub не містить сабмодулів, а студії й каталоги вчителі часто качають саме так і відкривають через `file://`.
+
+## 3. Світла тема
 
 ```html
-<!-- 1. Базова дизайн-система (Ядро токенів та компонентів) -->
-<link rel="stylesheet" href="friendly-arcade.css">
-
-<!-- 2. Специфіка конкретного застосунку (Доменні стилі) -->
-<link rel="stylesheet" href="app.css">
+<html data-theme="light">
 ```
 
-### Переваги такого розділення:
-* **Ізоляція:** Оновлення `friendly-arcade.css` автоматично осучаснює всі кнопки, радіуси та контраст у проєкті.
-* **Чистота коду:** `app.css` не дублює базові змінні та містить лише специфічні селектори продукту.
-
----
-
-## 3. Робота з PWA та Офлайн-Кешуванням (Service Worker)
-
-Якщо ваш сайт є PWA (як [LEGO WeDo 2.0 Catalog](https://sivochka.com/lego-catalog/)), додайте файл у масив кешування вашого `sw.js`:
-
-```javascript
-const CACHE_NAME = 'my-app-v2';
-const STATIC_ASSETS = [
-  './',
-  './index.html',
-  './friendly-arcade.css',  // <-- Додано ядро дизайн-системи
-  './app.css',
-  './app.js'
-];
+```js
+document.documentElement.dataset.theme = 'light'; // або delete document.documentElement.dataset.theme
 ```
 
----
+Якщо у вас є власні змінні, що посилаються на токени (`--panel: var(--bg2)`), оголошуйте їх на тому ж елементі, де стоїть `data-theme`, або нижче (наприклад на `body`). Змінні, оголошені на `:root` вище за `data-theme`, «заморозять» темні значення.
 
-## 4. Підключення Аркадного Аудіо-Синтезатора (Web Audio API)
-
-Щоб надати сайту фірмових тактильних звуків кліку без використання зовнішніх аудіофайлів:
+## 4. Аркадний звук без файлів (Web Audio)
 
 ```javascript
-// Автономний генератор аркадного кліку
 function playArcadeBeep(frequency = 520, duration = 0.08) {
   try {
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -65,25 +75,24 @@ function playArcadeBeep(frequency = 520, duration = 0.08) {
     const ctx = new AudioCtx();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
-
     osc.type = 'triangle';
     osc.frequency.setValueAtTime(frequency, ctx.currentTime);
-
     gain.gain.setValueAtTime(0.12, ctx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
-
     osc.connect(gain);
     gain.connect(ctx.destination);
-
     osc.start();
     osc.stop(ctx.currentTime + duration);
-  } catch (e) {
-    // Тихо ігнорувати, якщо аудіо заблоковано політикою браузера
+  } catch {
+    // аудіо заблоковане політикою браузера
   }
 }
-
-// Виклик при кліку на кнопки:
-document.querySelectorAll('.btn').forEach(btn => {
-  btn.addEventListener('click', () => playArcadeBeep(600));
-});
 ```
+
+## 5. Випуск нової версії (для мейнтейнера)
+
+1. Правки лише в `tokens.css`, `base.css`, `components.css`.
+2. `npm run build && npm test`.
+3. Запис у [CHANGELOG.md](../CHANGELOG.md), версія в `package.json`.
+4. Тег `vX.Y.Z`, пересунути тег мажорної версії (`v2`), GitHub Release.
+5. Оновити споживачів (Тихий клас, LEGO Catalog, 3D Club Studio) і перевірити їх у браузері.

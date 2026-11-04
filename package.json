@@ -1,0 +1,32 @@
+{
+  "name": "friendly-arcade",
+  "version": "2.1.0",
+  "description": "Zero-dependency, offline-first CSS design system for kids' educational apps and STEM clubs: Midnight Arcade tokens, light theme, base and components.",
+  "license": "MIT",
+  "author": "Ihor Sivochka (https://sivochka.com)",
+  "homepage": "https://sivochka.com/friendly-arcade/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Figarist/friendly-arcade.git"
+  },
+  "keywords": ["css", "design-system", "design-tokens", "kids", "education", "accessibility", "offline"],
+  "style": "friendly-arcade.css",
+  "files": [
+    "tokens.css",
+    "base.css",
+    "components.css",
+    "friendly-arcade.css"
+  ],
+  "exports": {
+    ".": "./friendly-arcade.css",
+    "./friendly-arcade.css": "./friendly-arcade.css",
+    "./tokens.css": "./tokens.css",
+    "./base.css": "./base.css",
+    "./components.css": "./components.css"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check",
+    "test": "node --test test/*.test.mjs"
+  }
+}

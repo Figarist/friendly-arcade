@@ -7,7 +7,7 @@
 
 ## 1. Ідентичність та Місія Проєкту
 
-* **Назва:** Friendly Arcade UI (v2.0.0)
+* **Назва:** Friendly Arcade UI (v2.1.0)
 * **Автор та мейнтейнер:** Ігор Сівочка ([sivochka.com](https://sivochka.com) | [sivochka.com/tutoring](https://sivochka.com/tutoring/))
 * **Тип репозиторію:** Публічна відкрита дизайн-система, легкий автономний CSS-фреймворк та портфоліо-шоурум викладача.
 * **Репозиторій GitHub:** `https://github.com/Figarist/friendly-arcade`
@@ -29,9 +29,11 @@
    * Шрифти виключно системні стек-шрифти (`--font-sans`: Segoe UI, Roboto, sans-serif).
    * Звукові ефекти реалізуються **виключно через Web Audio API** (вбудований осцилятор), без завантаження зовнішніх `.mp3` чи `.wav`.
 
-2. 🚫 **ЖОДНОГО ЗБИРАЧА (NO NPM / NO NODE RUNTIME IN PRODUCTION):**
+2. 🚫 **ЖОДНОГО ЗБИРАЧА В ПРОДАКШЕНІ, ЖОДНИХ NPM-ЗАЛЕЖНОСТЕЙ:**
    * CSS пишеться чистим Vanilla CSS3 з нативними змінними `:root`.
    * JS пишеться чистим Vanilla ES6+.
+   * `scripts/build.mjs` і тести працюють на голому Node без `npm install`. `friendly-arcade.css` генерується: правте шари `tokens.css` / `base.css` / `components.css`, потім `npm run build && npm test`.
+   * **Кольори тільки в `tokens.css`** (тест це перевіряє). Новий колір компонента = новий токен у `:root` і, за потреби, у `[data-theme="light"]`.
 
 3. ♿ **СУВОРА ДОСТУПНІСТЬ (WCAG AAA / AA):**
    * Білий текст на зеленому (`#00d26a`) чи жовтому (`#ffc312`) суворо **ЗАБОРОНЕНИЙ** (контраст < 2:1 — це провал WCAG). Завжди використовувати токени `--on-green: #06210f` (8.46:1) та `--on-yellow: #261b00` (10.54:1).
@@ -50,20 +52,20 @@
 
 ```
 friendly-arcade/
-├── AGENTS.md                  # Цей документ — операційні правила для AI
-├── README.md                  # Офіційна публічна документація репозиторію з бейджами
-├── LICENSE                    # Відкрита ліцензія MIT (Ihor Sivochka)
-├── .gitignore                 # Правила ігнорування тимчасових файлів ОС
-├── friendly-arcade.css        # Головне ядро дизайн-системи (Drop-in CSS)
-├── index.html                 # Інтерактивна вітрина-шоурум, палітра та звуковий синтезатор
-└── docs/                      # Поглиблена інженерна документація
-    ├── ARCHITECTURE.md        # Архітектурні шари, токени та контрастні формули
-    ├── COMPONENTS.md          # Повний каталог компонентів з прикладами HTML-коду
-    ├── INTEGRATION_GUIDE.md   # Інструкція інтеграції у сторонні та власні сайти
-    └── ECOSYSTEM_MIGRATION_LOG.md # Журнал міграції та синхронізації з LEGO та 3D Студією
+├── tokens.css                 # Токени: темна тема (:root) + світла ([data-theme="light"]). Кольори лише тут
+├── base.css                   # Скидання, тіло, типографіка, фокус, reduced-motion, 44px цілі
+├── components.css             # .btn, .pill, .chip, .badge, .card, .arcade-*
+├── friendly-arcade.css        # ЗГЕНЕРОВАНИЙ бандл (npm run build), руками не правити
+├── package.json               # exports для npm/Vite: friendly-arcade/tokens.css тощо
+├── scripts/build.mjs          # Збирає бандл; --check для CI
+├── scripts/update-friendly-arcade.sh  # Копіюється у статичні сайти-споживачі
+├── test/build.test.mjs        # Бандл актуальний, var() визначені, кольори в токенах, контраст WCAG, таблиця README
+├── .github/workflows/test.yml             # CI цього репо
+├── .github/workflows/verify-vendored.yml  # Багаторазова перевірка копії у споживачів
+├── CHANGELOG.md               # Журнал версій (SemVer, теги vX.Y.Z + рухомий v2)
+├── index.html                 # Вітрина з перемикачем теми
+└── docs/                      # ARCHITECTURE, COMPONENTS, INTEGRATION_GUIDE, ECOSYSTEM_MIGRATION_LOG
 ```
-
----
 
 ## 4. Карта Токенів Дизайн-Системи (`:root`)
 
@@ -98,23 +100,18 @@ friendly-arcade/
 
 ## 5. Залежні Проєкти в Екосистемі Автора
 
-Репозиторій `friendly-arcade` є **першоджерелом (Upstream)** для двох живих відкритих EdTech продуктів:
+| Проєкт | Як підключено | Оновлення |
+|---|---|---|
+| [Тихий клас](https://sivochka.com/bouncy/) (`Figarist/bouncy`, Vite) | npm git-залежність `friendly-arcade#vX.Y.Z`, `@import 'friendly-arcade/tokens.css'` | змінити тег у `package.json` |
+| [LEGO WeDo 2.0 Catalog](https://sivochka.com/lego-catalog/) (статичний PWA) | копія `vendor/friendly-arcade/` + `VERSION`, CI `verify-vendored.yml@v2` | `scripts/update-friendly-arcade.sh vX.Y.Z` + підняти кеш `sw.js` |
+| [3D Club Studio](https://sivochka.com/3d-club-studio/) (статичний, працює з `file://`) | копія `vendor/friendly-arcade/` + `VERSION`, CI `verify-vendored.yml@v2` | `scripts/update-friendly-arcade.sh vX.Y.Z` |
 
-1. **LEGO WeDo 2.0 Catalog** (`C:\Users\igors\Documents\GitHub\lego-catalog` | [sivochka.com/lego-catalog](https://sivochka.com/lego-catalog/))
-   * Роль: Еталонний візуальний прототип.
-   * Синхронізація: Використовує токени Friendly Arcade, класи `.btn`, `.pill`, `.chip`, `.badge`, `.card`, модалку з радіусом 24px та круглою кнопкою ✕.
-
-2. **3D Club Studio v2.0.0** (`C:\Users\igors\Documents\GitHub\3d-club-studio` | [sivochka.com/3d-club-studio](https://sivochka.com/3d-club-studio/))
-   * Роль: Повномасштабна CAD-студія процедурного 3D-моделювання на Three.js.
-   * Синхронізація: Переведена з темної палітри Slate (`#080d16`) на Midnight Arcade (`#1a1a2e`), оновлено генераторні таби, панелі інструментів, модальні вікна та каталог 72 місій.
-
----
+Жоден споживач не тримає власних копій токенів у своєму CSS: лише аліаси на кшталт `--panel: var(--bg2)`.
 
 ## 6. Регламент Внесення Змін для Агентів
 
-Коли агент додає новий компонент або коригує стиль у `friendly-arcade`:
-1. Оновити стилі у [`friendly-arcade.css`](friendly-arcade.css).
-2. Додати живий демонстраційний блок та інтерактивні елементи у [`index.html`](index.html).
-3. Перевірити, що розмір сенсорної мішені $\ge 44\text{px}$, а колір тексту проходить WCAG AAA.
-4. Оновити документацію в [`docs/COMPONENTS.md`](docs/COMPONENTS.md).
-5. Якщо зміна впливає на `lego-catalog` або `3d-club-studio`, внести запис у [`docs/ECOSYSTEM_MIGRATION_LOG.md`](docs/ECOSYSTEM_MIGRATION_LOG.md).
+1. Правити шари `tokens.css` / `base.css` / `components.css` (не бандл).
+2. `npm run build && npm test` — бандл, токени, контраст обох тем, таблиця в README.
+3. Живий приклад у [`index.html`](index.html), перевірка в обох темах, тач-цілі ≥ 44px.
+4. Документація в [`docs/COMPONENTS.md`](docs/COMPONENTS.md), запис у [`CHANGELOG.md`](CHANGELOG.md), версія в `package.json`.
+5. Реліз: тег `vX.Y.Z`, пересунути `v2`, GitHub Release. Потім оновити споживачів (таблиця вище) і запис у [`docs/ECOSYSTEM_MIGRATION_LOG.md`](docs/ECOSYSTEM_MIGRATION_LOG.md).
