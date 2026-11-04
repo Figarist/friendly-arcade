@@ -18,6 +18,6 @@ jobs:
         with:
           node-version: 24
       - name: Bundle is generated from the layers
-        run: node scripts/build.mjs --check
+        run: npm run check
       - name: Tokens, colours and WCAG contrast
-        run: node --test test/
+        run: npm test
