@@ -144,7 +144,6 @@ scripts/update-friendly-arcade.sh v2.1.0
 * 📐 [**docs/ARCHITECTURE.md**](docs/ARCHITECTURE.md) — Глибокий аналіз архітектурних шарів, математика формул WCAG AAA та фізика анімацій.
 * 🧩 [**docs/COMPONENTS.md**](docs/COMPONENTS.md) — Каталог усіх компонентів із готовими HTML-шаблонами для копіювання.
 * 🔌 [**docs/INTEGRATION_GUIDE.md**](docs/INTEGRATION_GUIDE.md) — Покроковий посібник інтеграції у сторонні веб-сайти та PWA.
-* 📜 [**docs/ECOSYSTEM_MIGRATION_LOG.md**](docs/ECOSYSTEM_MIGRATION_LOG.md) — Детальний журнал того, що було взято та змінено в LEGO WeDo 2.0 Catalog та 3D Club Studio v2.0.0.
 
 ---
 
