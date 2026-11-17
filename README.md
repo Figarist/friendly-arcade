@@ -147,16 +147,12 @@ scripts/update-friendly-arcade.sh v2.1.0
 
 ---
 
-## 👨‍🏫 Про автора та контакти
+## 👨‍🏫 Про автора
 
-**Ігор Сівочка (Ihor Sivochka)**  
-Викладач IT, програмування та робототехніки для дітей.
+**Ігор Сівочка (Ihor Sivochka)**
 
 * 🌐 **Персональний сайт:** [sivochka.com](https://sivochka.com/)
-* 🚀 **Індивідуальні онлайн-заняття:** [sivochka.com](https://sivochka.com/) (Scratch, Python, 3D-друк, робототехніка)
-* ✈️ **Info-канал:** [Figarist](https://sivochka.com/)
-* ▶️ **YouTube:** [Figarist](https://sivochka.com/)
-* 💻 **GitHub:** [@Figarist](https://github.com/Figarist)
+* 💻 **GitHub:** [Figarist/friendly-arcade](https://github.com/Figarist/friendly-arcade)
 
 ---
 
