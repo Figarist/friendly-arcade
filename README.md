@@ -138,9 +138,8 @@ scripts/update-friendly-arcade.sh v2.1.0
 
 ## 📚 Повна Документація Проєкту
 
-Для розробників та AI-агентів у репозиторії створено повний комплект специфікацій:
+Для розробників у репозиторії створено повний комплект специфікацій:
 
-* 🤖 [**AGENTS.md**](AGENTS.md) — Головний операційний контракт для AI-агентів (Antigravity) з правилами чистоти коду та картою токенів.
 * 📐 [**docs/ARCHITECTURE.md**](docs/ARCHITECTURE.md) — Глибокий аналіз архітектурних шарів, математика формул WCAG AAA та фізика анімацій.
 * 🧩 [**docs/COMPONENTS.md**](docs/COMPONENTS.md) — Каталог усіх компонентів із готовими HTML-шаблонами для копіювання.
 * 🔌 [**docs/INTEGRATION_GUIDE.md**](docs/INTEGRATION_GUIDE.md) — Покроковий посібник інтеграції у сторонні веб-сайти та PWA.
@@ -152,6 +151,7 @@ scripts/update-friendly-arcade.sh v2.1.0
 **Ігор Сівочка (Ihor Sivochka)**
 
 * 🌐 **Персональний сайт:** [sivochka.com](https://sivochka.com/)
+* 🎮 **Живий шоурум:** [sivochka.com/friendly-arcade/](https://sivochka.com/friendly-arcade/)
 * 💻 **GitHub:** [Figarist/friendly-arcade](https://github.com/Figarist/friendly-arcade)
 
 ---
