@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const HTML_PATH = join(ROOT, 'index.html');
-const LOCALES = ['uk', 'en', 'pl', 'ru'];
+const LOCALES = ['uk', 'en', 'pl', 'ru', 'ko'];
 const UKRAINIAN_LEAK_RE = /[єіїґЄІЇҐ]/;
 
 function loadDictionary(html) {
@@ -72,8 +72,8 @@ function main() {
       }
     }
 
-    // 5. Verify zero Ukrainian Cyrillic leaks in en, pl, ru
-    for (const loc of ['en', 'pl', 'ru']) {
+    // 5. Verify zero Ukrainian Cyrillic leaks in en, pl, ru, ko
+    for (const loc of ['en', 'pl', 'ru', 'ko']) {
       for (const [k, val] of Object.entries(dict[loc])) {
         const leak = val.match(UKRAINIAN_LEAK_RE);
         if (leak) {

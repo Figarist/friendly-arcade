@@ -12,6 +12,7 @@
   <link rel="alternate" hreflang="en" href="https://sivochka.com/friendly-arcade/?lang=en">
   <link rel="alternate" hreflang="pl" href="https://sivochka.com/friendly-arcade/?lang=pl">
   <link rel="alternate" hreflang="ru" href="https://sivochka.com/friendly-arcade/?lang=ru">
+  <link rel="alternate" hreflang="ko" href="https://sivochka.com/friendly-arcade/?lang=ko">
   <link rel="alternate" hreflang="x-default" href="https://sivochka.com/friendly-arcade/">
 
   <link rel="stylesheet" href="friendly-arcade.css">
@@ -36,36 +37,79 @@
     }
 
     .lang-switcher {
+      position: relative;
       display: inline-flex;
       align-items: center;
-      gap: 2px;
+    }
+
+    .lang-trigger {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 14px;
       background: var(--surface);
       border: 2px solid var(--surface2);
       border-radius: var(--r-pill);
-      padding: 3px;
-    }
-
-    .lang-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
+      color: var(--text);
       font-family: inherit;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 800;
       letter-spacing: 0.04em;
-      padding: 5px 9px;
-      border-radius: var(--r-pill);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       cursor: pointer;
-      transition: all var(--duration-fast);
+      transition: border-color var(--duration-fast), background var(--duration-fast);
     }
 
-    .lang-btn:hover {
+    .lang-trigger:hover,
+    .lang-trigger[aria-expanded="true"] {
+      border-color: var(--green);
+    }
+
+    .lang-menu {
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      min-width: 175px;
+      background: var(--surface);
+      border: 2px solid var(--surface2);
+      border-radius: var(--r-md);
+      padding: 6px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      z-index: 100;
+    }
+
+    .lang-menu[hidden] {
+      display: none;
+    }
+
+    .lang-option {
+      min-height: 44px;
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      border-radius: var(--r-sm);
+      padding: 8px 12px;
       color: var(--text);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background var(--duration-fast), color var(--duration-fast);
     }
 
-    .lang-btn.active {
+    .lang-option:hover {
+      background: var(--surface2);
+    }
+
+    .lang-option.active {
       background: var(--green);
       color: var(--on-green);
+      font-weight: 800;
     }
 
     .hero-banner {
@@ -283,11 +327,19 @@
         <a href="https://sivochka.com/" target="_blank" rel="noopener" class="pill pill--ok" style="text-decoration: none; cursor: pointer;">
           🌐 sivochka.com ↗
         </a>
-        <div class="lang-switcher" role="group" data-i18n-aria-label="header.langLabel" aria-label="Вибір мови">
-          <button type="button" class="lang-btn active" data-lang="uk" aria-pressed="true">UK</button>
-          <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
-          <button type="button" class="lang-btn" data-lang="pl" aria-pressed="false">PL</button>
-          <button type="button" class="lang-btn" data-lang="ru" aria-pressed="false">RU</button>
+        <div class="lang-switcher">
+          <button type="button" class="lang-trigger" id="lang-trigger" aria-expanded="false" aria-haspopup="listbox" data-i18n-aria-label="header.langLabel" aria-label="Вибір мови">
+            <span aria-hidden="true">🌐</span>
+            <span id="lang-current">UK</span>
+            <span aria-hidden="true">▾</span>
+          </button>
+          <div class="lang-menu" id="lang-menu" role="listbox" data-i18n-aria-label="header.langLabel" aria-label="Вибір мови" hidden>
+            <button type="button" class="lang-option active" role="option" data-lang="uk" aria-selected="true">UK · Українська</button>
+            <button type="button" class="lang-option" role="option" data-lang="en" aria-selected="false">EN · English</button>
+            <button type="button" class="lang-option" role="option" data-lang="pl" aria-selected="false">PL · Polski</button>
+            <button type="button" class="lang-option" role="option" data-lang="ru" aria-selected="false">RU · Русский</button>
+            <button type="button" class="lang-option" role="option" data-lang="ko" aria-selected="false">KO · 한국어</button>
+          </div>
         </div>
         <button type="button" class="btn btn--ghost btn--sm" id="theme-toggle" aria-pressed="false">☀️ Світла тема</button>
         <a href="https://github.com/Figarist/friendly-arcade" target="_blank" rel="noopener" class="btn btn--accent btn--sm" data-i18n="header.star">
@@ -1013,11 +1065,103 @@
         'toast.saved': '🎉 Сохранено успешно!',
         'toast.copiedToken': '📋 Скопировано: var({token}) [{hex}]',
         'toast.copiedSnippet': '📋 Код успешно скопирован в буфер!'
+      },
+      ko: {
+        'meta.title': '🎮 Friendly Arcade UI — 어린이 EdTech 앱을 위한 오픈 디자인 시스템',
+        'meta.description': '로보틱스 및 IT 교사 Ihor Sivochka가 만든 어린이 및 교육용 웹 프로젝트를 위한 가볍고 의존성 없는 Vanilla CSS UI 프레임워크입니다.',
+        'meta.author': 'Ihor Sivochka',
+        'header.subtitle': 'EdTech 디자인 시스템',
+        'header.langLabel': '언어 선택',
+        'header.star': '⭐ GitHub 스타',
+        'theme.toLight': '☀️ 라이트 테마',
+        'theme.toDark': '🌙 다크 테마',
+        'hero.badge': 'v2.0.0 릴리스 • 의존성 제로',
+        'hero.title': '<span>행복한 아이들</span>과 빠른 교사를 위한 디자인 시스템',
+        'hero.desc': '<strong>Friendly Arcade UI</strong>는 어린이 교육용 게임, 트레이너, STEM 카탈로그, 3D 스튜디오를 위한 독립형 100% 오프라인 Vanilla CSS 프레임워크입니다. 실제 수업, 태블릿, 프로젝터 환경을 위해 로보틱스 교사가 직접 제작했습니다.',
+        'hero.ctaStart': '⚡ 빠른 시작 (1분)',
+        'hero.ctaSound': '🔊 사운드 테스트',
+        'hero.ctaComponents': '🧩 컴포넌트 카탈로그',
+        'cases.title': '실제 학생들과 함께 검증됨',
+        'cases.subtitle': '이 디자인 시스템은 매일 수백 명의 아이들이 사용하는 세 가지 교육 제품을 구동합니다:',
+        'cases.open': '열기 ↗',
+        'cases.lego.badge': 'PWA • 100% 오프라인',
+        'cases.lego.title': 'LEGO WeDo 2.0 카탈로그',
+        'cases.lego.desc': '로보틱스 교사와 STEM 학교를 위한 인기 무료 조립 설명서 카탈로그입니다. 인터넷 없이도 다국어, 가챠 룰렛, 필터, 검색을 지원합니다.',
+        'cases.studio3d.badge': '3D CAD • THREE.JS',
+        'cases.studio3d.title': '3D 원더 포지 (3D Club Studio)',
+        'cases.studio3d.desc': '초등 2~6학년을 위한 오프라인 학교용 3D 모델링 웹 스튜디오입니다. 복셀, 착시, 메커니즘 생성기와 출력 안전한 STL 내보내기를 제공합니다.',
+        'cases.bouncy.badge': 'PWA • 라이트 테마',
+        'cases.bouncy.title': '조용한 교실',
+        'cases.bouncy.desc': '전자칠판용 교실 소음 측정기 및 정숙 타이머: 잠자는 몬스터, 학급 별 항아리, 밝은 교실 환경에 맞춘 라이트 모드를 제공합니다.',
+        'palette.title': '수학적으로 검증된 팔레트 (WCAG AAA)',
+        'palette.subtitle': '연두색이나 노란색 배경 위에 읽기 힘든 흰색 텍스트가 없습니다. 카드를 클릭해 토큰을 복사하세요:',
+        'components.title': '인터랙티브 컴포넌트 쇼케이스',
+        'components.subtitle': '아이들의 손가락에 맞춘 촉각 피드백, 2~3px 테두리, 알약 배지, 눌리는 :active 상태:',
+        'components.buttons.title': '1. 촉각 버튼 (.btn)',
+        'components.buttons.primary': '.btn--primary (CTA)',
+        'components.buttons.accent': '.btn--accent (골드)',
+        'components.buttons.danger': '.btn--danger',
+        'components.buttons.ghost': '.btn--ghost',
+        'components.buttons.sm': '크기 .btn--sm',
+        'components.buttons.lg': '크기 .btn--lg',
+        'components.buttons.heartTitle': '하트',
+        'components.pills.title': '2. 상태 필 (.pill) 및 칩 (.chip)',
+        'components.pills.ok': '✅ 확인됨',
+        'components.pills.warn': '⚠️ 기본 부품 2개 누락',
+        'components.pills.danger': '⛔ 출력 오류',
+        'components.pills.info': 'ℹ️ 12개 조립',
+        'components.pills.badgeNew': 'NEW',
+        'components.pills.badgeHot': 'HOT',
+        'components.pills.badgeGold': '⭐ 1~4학년',
+        'components.chips.all': '🎮 전체 퀘스트',
+        'components.chips.mechanics': '🤖 메커니즘',
+        'components.chips.space': '🛰️ 우주',
+        'components.chips.print3d': '🎨 3D 프린팅',
+        'components.cards.title': '3. Roblox 타일 퀘스트 카드 (.card)',
+        'components.cards.assemble': '조립하기',
+        'components.cards.shuttle.badge': '인기',
+        'components.cards.shuttle.title': '우주 왕복선',
+        'components.cards.shuttle.desc': '호버 시 부드러운 translateY(-8px) 상승, 3px 초록 테두리, 은은한 글로우 그림자.',
+        'components.cards.shuttle.pill': '24단계',
+        'components.cards.balancer.badge': '신규',
+        'components.cards.balancer.title': '로보 밸런서',
+        'components.cards.balancer.desc': '초음파 거리 센서를 탑재한 이륜 자가 균형 카트입니다.',
+        'components.cards.balancer.pill': '⭐ 4~6학년',
+        'components.cards.chest.badge': '퀘스트',
+        'components.cards.chest.title': '3D 보물 상자',
+        'components.cards.chest.desc': '0.4mm 3D 프린터 노즐에 최적화된 기계식 비밀번호 자물쇠입니다.',
+        'components.cards.chest.pill': '~18 g PLA',
+        'quickstart.title': '1분 만에 내 사이트에 추가하기',
+        'quickstart.subtitle': '저장소에 <code>friendly-arcade.css</code>를 넣고 스타일시트 태그 하나만 연결하세요:',
+        'quickstart.copy': '📋 복사하기',
+        'quickstart.snippet': '<!-- 1. 단일 스타일시트 연결 -->\n<link rel="stylesheet" href="friendly-arcade.css">\n\n<!-- 2. 아케이드 퀘스트 카드 예시 -->\n<div class="card">\n  <div class="card-img-wrap">\n    <span class="badge badge--new">NEW</span>\n    <img src="model.png" alt="LEGO 모델">\n  </div>\n  <div class="card-body">\n    <h3 class="card-title">스파이더 봇 3000</h3>\n    <p class="card-desc">로보틱스 수업을 위한 단계별 조립 설명서.</p>\n    <div class="card-footer">\n      <span class="pill pill--ok">⭐ 2~4학년</span>\n      <button class="btn btn--primary btn--sm">설명서 열기</button>\n    </div>\n  </div>\n</div>',
+        'author.badge': '제작자',
+        'author.name': 'Ihor Sivochka',
+        'author.bio': '오픈 LEGO WeDo 2.0 조립 설명서 카탈로그, 오프라인 웹 스튜디오 "3D Wonder Forge", Friendly Arcade UI 디자인 시스템의 제작자입니다.',
+        'author.siteBtn': '🌐 개인 웹사이트 sivochka.com ↗',
+        'author.repoBtn': '⭐ GitHub 저장소 ↗',
+        'modal.title': '🎮 Friendly Arcade 모달 창',
+        'modal.intro': '시스템의 표준 접근성 대화상자입니다:',
+        'modal.item1': '튼튼한 3px 테두리와 <strong>24px (--r-lg)</strong> 모서리 반경;',
+        'modal.item2': '부드러운 빨간색 호버 상태의 원형 ✕ 버튼 (36x36px);',
+        'modal.item3': '푸터 액션 버튼의 WCAG AAA 대비 보장;',
+        'modal.item4': '자체 스크롤 잠금 및 <code>Escape</code> 키로 닫기 지원.',
+        'modal.close': '닫기',
+        'modal.accept': '확인',
+        'toast.default': '알림',
+        'toast.sound': '🎉 아케이드 사운드가 켜졌습니다!',
+        'toast.cta': 'Primary CTA 클릭!',
+        'toast.accent': 'Accent 클릭!',
+        'toast.danger': 'Danger 클릭!',
+        'toast.ghost': 'Ghost 클릭!',
+        'toast.saved': '🎉 성공적으로 저장되었습니다!',
+        'toast.copiedToken': '📋 복사됨: var({token}) [{hex}]',
+        'toast.copiedSnippet': '📋 코드가 클립보드에 복사되었습니다!'
       }
     };
     // I18N_DICTIONARY_END
 
-    const SUPPORTED_LANGS = ['uk', 'en', 'pl', 'ru'];
+    const SUPPORTED_LANGS = ['uk', 'en', 'pl', 'ru', 'ko'];
     let currentLang = 'uk';
 
     function t(key, vars = {}) {
@@ -1057,10 +1201,13 @@
         el.setAttribute('content', t(el.dataset.i18nContent));
       });
 
-      document.querySelectorAll('.lang-btn').forEach((btn) => {
+      const langCurrent = document.getElementById('lang-current');
+      if (langCurrent) langCurrent.textContent = lang.toUpperCase();
+
+      document.querySelectorAll('.lang-option').forEach((btn) => {
         const active = btn.dataset.lang === lang;
         btn.classList.toggle('active', active);
-        btn.setAttribute('aria-pressed', String(active));
+        btn.setAttribute('aria-selected', String(active));
       });
 
       updateThemeButtonLabel();
@@ -1088,12 +1235,45 @@
       }
       applyLanguage(initial || 'uk', false);
 
-      document.querySelectorAll('.lang-btn').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          playBeep(520, 'sine');
-          applyLanguage(btn.dataset.lang, true);
+      const langSwitcher = document.querySelector('.lang-switcher');
+      const langTrigger = document.getElementById('lang-trigger');
+      const langMenu = document.getElementById('lang-menu');
+
+      function setLangMenuOpen(open) {
+        if (!langTrigger || !langMenu) return;
+        langTrigger.setAttribute('aria-expanded', String(open));
+        langMenu.hidden = !open;
+      }
+
+      if (langTrigger && langMenu) {
+        langTrigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = langTrigger.getAttribute('aria-expanded') === 'true';
+          setLangMenuOpen(!isOpen);
         });
-      });
+
+        document.querySelectorAll('.lang-option').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            playBeep(520, 'sine');
+            applyLanguage(btn.dataset.lang, true);
+            setLangMenuOpen(false);
+            langTrigger.focus();
+          });
+        });
+
+        document.addEventListener('click', (e) => {
+          if (langSwitcher && !langSwitcher.contains(e.target)) {
+            setLangMenuOpen(false);
+          }
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && langTrigger.getAttribute('aria-expanded') === 'true') {
+            setLangMenuOpen(false);
+            langTrigger.focus();
+          }
+        });
+      }
     })();
 
     // Light / dark theme: data-theme on <html>, choice persisted in localStorage
