@@ -3,15 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎮 Friendly Arcade UI — Відкрита дизайн-система для дитячих EdTech застосунків</title>
-  <meta name="description" content="Легкий, автономний Vanilla CSS UI-фреймворк для дитячих та навчальних веб-проєктів від викладача робототехніки та IT Ігоря Сівочки.">
-  <meta name="author" content="Ігор Сівочка">
+  <title data-i18n="meta.title">🎮 Friendly Arcade UI — Відкрита дизайн-система для дитячих EdTech застосунків</title>
+  <meta name="description" data-i18n-content="meta.description" content="Легкий, автономний Vanilla CSS UI-фреймворк для дитячих та навчальних веб-проєктів від викладача робототехніки та IT Ігоря Сівочки.">
+  <meta name="author" data-i18n-content="meta.author" content="Ігор Сівочка">
   <meta name="robots" content="noindex, follow">
-  
+
+  <link rel="alternate" hreflang="uk" href="https://sivochka.com/friendly-arcade/?lang=uk">
+  <link rel="alternate" hreflang="en" href="https://sivochka.com/friendly-arcade/?lang=en">
+  <link rel="alternate" hreflang="pl" href="https://sivochka.com/friendly-arcade/?lang=pl">
+  <link rel="alternate" hreflang="ru" href="https://sivochka.com/friendly-arcade/?lang=ru">
+  <link rel="alternate" hreflang="x-default" href="https://sivochka.com/friendly-arcade/">
+
   <link rel="stylesheet" href="friendly-arcade.css">
 
   <style>
-    /* Стилі вітрини та презентації фреймворку */
+    /* Showcase and presentation styles */
     .showcase-container {
       max-width: 1400px;
       margin: 0 auto;
@@ -19,6 +25,47 @@
       display: flex;
       flex-direction: column;
       gap: 48px;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: auto;
+      flex-wrap: wrap;
+    }
+
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      background: var(--surface);
+      border: 2px solid var(--surface2);
+      border-radius: var(--r-pill);
+      padding: 3px;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      padding: 5px 9px;
+      border-radius: var(--r-pill);
+      cursor: pointer;
+      transition: all var(--duration-fast);
+    }
+
+    .lang-btn:hover {
+      color: var(--text);
+    }
+
+    .lang-btn.active {
+      background: var(--green);
+      color: var(--on-green);
     }
 
     .hero-banner {
@@ -97,7 +144,7 @@
       margin-top: 4px;
     }
 
-    /* Вітрина кольорів */
+    /* Color palette showcase */
     .palette-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -141,7 +188,7 @@
       color: var(--text-muted);
     }
 
-    /* Блок коду */
+    /* Code snippet block */
     .code-snippet {
       background: #0b111e;
       border: 2px solid var(--surface2);
@@ -161,7 +208,7 @@
       right: 12px;
     }
 
-    /* Блок автора */
+    /* Author promo block */
     .author-promo-card {
       background: linear-gradient(135deg, var(--surface) 0%, var(--card) 100%);
       border: 3px solid var(--yellow);
@@ -215,7 +262,7 @@
 </head>
 <body>
 
-  <!-- ШАПКА -->
+  <!-- HEADER -->
   <header class="arcade-header">
     <div class="arcade-header-inner">
       <a href="#" class="arcade-logo">
@@ -227,105 +274,111 @@
         </div>
         <div class="arcade-logo-text">
           <strong>🎮 Friendly Arcade UI</strong>
-          <small>EdTech Design System</small>
+          <small data-i18n="header.subtitle">EdTech Design System</small>
         </div>
       </a>
 
-      <!-- Швидкі посилання на автора -->
-      <div style="display: flex; align-items: center; gap: 12px; margin-left: auto;">
+      <!-- Header controls -->
+      <div class="header-controls">
         <a href="https://sivochka.com/" target="_blank" rel="noopener" class="pill pill--ok" style="text-decoration: none; cursor: pointer;">
           🌐 sivochka.com ↗
         </a>
+        <div class="lang-switcher" role="group" data-i18n-aria-label="header.langLabel" aria-label="Вибір мови">
+          <button type="button" class="lang-btn active" data-lang="uk" aria-pressed="true">UK</button>
+          <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+          <button type="button" class="lang-btn" data-lang="pl" aria-pressed="false">PL</button>
+          <button type="button" class="lang-btn" data-lang="ru" aria-pressed="false">RU</button>
+        </div>
         <button type="button" class="btn btn--ghost btn--sm" id="theme-toggle" aria-pressed="false">☀️ Світла тема</button>
-        <a href="https://github.com/Figarist/friendly-arcade" target="_blank" rel="noopener" class="btn btn--accent btn--sm">
+        <a href="https://github.com/Figarist/friendly-arcade" target="_blank" rel="noopener" class="btn btn--accent btn--sm" data-i18n="header.star">
           ⭐ Star on GitHub
         </a>
       </div>
     </div>
   </header>
 
-  <!-- ГОЛОВНИЙ ШОУРУМ -->
+  <!-- MAIN SHOWCASE -->
   <main class="showcase-container">
 
-    <!-- HERO БАНЕР -->
+    <!-- HERO BANNER -->
     <section class="hero-banner">
       <div>
-        <div class="badge badge--new" style="margin-bottom: 14px;">v2.0.0 RELEASE • ZERO DEPENDENCIES</div>
-        <h1 class="hero-title">Дизайн-система для <span>щасливих дітей</span> та швидких викладачів</h1>
-        <p class="hero-desc">
+        <div class="badge badge--new" style="margin-bottom: 14px;" data-i18n="hero.badge">v2.0.0 RELEASE • ZERO DEPENDENCIES</div>
+        <h1 class="hero-title" data-i18n-html="hero.title">Дизайн-система для <span>щасливих дітей</span> та швидких викладачів</h1>
+        <p class="hero-desc" data-i18n-html="hero.desc">
           <strong>Friendly Arcade UI</strong> — це автономний, 100% офлайн Vanilla CSS фреймворк для дитячих освітніх ігор, тренажерів, STEM-каталогів та 3D-студій. Розроблено викладачем робототехніки для реальних уроків, планшетів і проекторів.
         </p>
         <div style="display: flex; gap: 14px; flex-wrap: wrap;">
-          <a href="#quickstart" class="btn btn--primary btn--lg" onclick="playBeep(600, 'triangle')">⚡ Швидкий старт (1 хв)</a>
-          <button class="btn btn--accent btn--lg" onclick="playArcadeChord(); showToast('🎉 Увімкнено аркадний звук!')">🔊 Тест звуку</button>
-          <a href="#components" class="btn btn--ghost btn--lg">🧩 Каталог компонентів</a>
+          <a href="#quickstart" class="btn btn--primary btn--lg" onclick="playBeep(600, 'triangle')" data-i18n="hero.ctaStart">⚡ Швидкий старт (1 хв)</a>
+          <button class="btn btn--accent btn--lg" onclick="playArcadeChord(); showToast(t('toast.sound'))" data-i18n="hero.ctaSound">🔊 Тест звуку</button>
+          <a href="#components" class="btn btn--ghost btn--lg" data-i18n="hero.ctaComponents">🧩 Каталог компонентів</a>
         </div>
       </div>
-      <div style="font-size: 7rem; user-select: none; flex-shrink: 0;" class="num-tabular">
+      <div style="font-size: 7rem; user-select: none; flex-shrink: 0;" class="num-tabular" aria-hidden="true">
         👾
       </div>
     </section>
 
-    <!-- РЕАЛЬНІ КЕЙСИ ВИКОРИСТАННЯ -->
+    <!-- REAL CASE STUDIES -->
     <section>
       <div class="section-header">
-        <h2 class="section-title">Перевірено на реальних учнях</h2>
-        <p class="section-subtitle">Ця дизайн-система живить три освітні продукти, якими щодня користуються сотні дітей:</p>
+        <h2 class="section-title" data-i18n="cases.title">Перевірено на реальних учнях</h2>
+        <p class="section-subtitle" data-i18n="cases.subtitle">Ця дизайн-система живить три освітні продукти, якими щодня користуються сотні дітей:</p>
       </div>
 
       <div class="case-studies-grid">
         <a href="https://sivochka.com/lego-catalog/" target="_blank" rel="noopener" class="case-card">
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span class="badge badge--ok">PWA • 100% OFFLINE</span>
-            <span style="font-size: 2rem;">🧱</span>
+            <span class="badge badge--ok" data-i18n="cases.lego.badge">PWA • 100% OFFLINE</span>
+            <span style="font-size: 2rem;" aria-hidden="true">🧱</span>
           </div>
-          <h3 style="font-size: 1.3rem; font-weight: 900; color: var(--text);">LEGO WeDo 2.0 Catalog</h3>
-          <p style="font-size: 14px; color: var(--text2); line-height: 1.5;">
+          <h3 style="font-size: 1.3rem; font-weight: 900; color: var(--text);" data-i18n="cases.lego.title">LEGO WeDo 2.0 Catalog</h3>
+          <p style="font-size: 14px; color: var(--text2); line-height: 1.5;" data-i18n="cases.lego.desc">
             Популярний безкоштовний каталог інструкцій для вчителів робототехніки та STEM-шкіл. Мультимовність, Gacha-рулетка, фільтри та пошук без Інтернету.
           </p>
           <div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between;">
             <span class="pill pill--info">sivochka.com/lego-catalog</span>
-            <span class="btn btn--sm btn--primary">Відкрити ↗</span>
+            <span class="btn btn--sm btn--primary" data-i18n="cases.open">Відкрити ↗</span>
           </div>
         </a>
 
         <a href="https://sivochka.com/3d-club-studio/" target="_blank" rel="noopener" class="case-card">
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span class="badge badge--hot">3D CAD • THREE.JS</span>
-            <span style="font-size: 2rem;">⚒️</span>
+            <span class="badge badge--hot" data-i18n="cases.studio3d.badge">3D CAD • THREE.JS</span>
+            <span style="font-size: 2rem;" aria-hidden="true">⚒️</span>
           </div>
-          <h3 style="font-size: 1.3rem; font-weight: 900; color: var(--text);">3D Кузня Чудес (3D Club Studio)</h3>
-          <p style="font-size: 14px; color: var(--text2); line-height: 1.5;">
+          <h3 style="font-size: 1.3rem; font-weight: 900; color: var(--text);" data-i18n="cases.studio3d.title">3D Кузня Чудес (3D Club Studio)</h3>
+          <p style="font-size: 14px; color: var(--text2); line-height: 1.5;" data-i18n="cases.studio3d.desc">
             Автономна шкільна 3D-вебстудія моделювання для учнів 2–6 класів. Генератори вокселів, оптичних ілюзій, механіки та експорт print-safe STL.
           </p>
           <div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between;">
             <span class="pill pill--info">sivochka.com/3d-club-studio</span>
-            <span class="btn btn--sm btn--primary">Відкрити ↗</span>
+            <span class="btn btn--sm btn--primary" data-i18n="cases.open">Відкрити ↗</span>
           </div>
         </a>
 
         <a href="https://sivochka.com/bouncy/" target="_blank" rel="noopener" class="case-card">
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span class="badge badge--gold">PWA • СВІТЛА ТЕМА</span>
-            <span style="font-size: 2rem;">🤫</span>
+            <span class="badge badge--gold" data-i18n="cases.bouncy.badge">PWA • СВІТЛА ТЕМА</span>
+            <span style="font-size: 2rem;" aria-hidden="true">🤫</span>
           </div>
-          <h3 style="font-size: 1.3rem; font-weight: 900; color: var(--text);">Тихий клас</h3>
-          <p style="font-size: 14px; color: var(--text2); line-height: 1.5;">
+          <h3 style="font-size: 1.3rem; font-weight: 900; color: var(--text);" data-i18n="cases.bouncy.title">Тихий клас</h3>
+          <p style="font-size: 14px; color: var(--text2); line-height: 1.5;" data-i18n="cases.bouncy.desc">
             Шумомір і таймер тиші для уроку на смарт-дошці: сплячі монстрики, банка зірок для класу, світлий режим для яскравого кабінету.
           </p>
           <div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between;">
             <span class="pill pill--warn">sivochka.com/bouncy</span>
-            <span class="btn btn--sm btn--primary">Відкрити ↗</span>
+            <span class="btn btn--sm btn--primary" data-i18n="cases.open">Відкрити ↗</span>
           </div>
         </a>
       </div>
     </section>
 
-    <!-- ПАЛІТРА ТА МАТЕМАТИКА КОНТРАСТУ -->
+    <!-- PALETTE & CONTRAST MATH -->
     <section>
       <div class="section-header">
-        <h2 class="section-title">Математично вивірена палітра (WCAG AAA)</h2>
-        <p class="section-subtitle">Жодного сліпого білого тексту на салатовому чи жовтому тлі. Клікніть на картку, щоб скопіювати токен:</p>
+        <h2 class="section-title" data-i18n="palette.title">Математично вивірена палітра (WCAG AAA)</h2>
+        <p class="section-subtitle" data-i18n="palette.subtitle">Жодного сліпого білого тексту на салатовому чи жовтому тлі. Клікніть на картку, щоб скопіювати токен:</p>
       </div>
 
       <div class="palette-grid">
@@ -411,92 +464,92 @@
       </div>
     </section>
 
-    <!-- КАТАЛОГ КОМПОНЕНТІВ -->
+    <!-- COMPONENT SHOWCASE -->
     <section id="components">
       <div class="section-header">
-        <h2 class="section-title">Інтерактивна вітрина компонентів</h2>
-        <p class="section-subtitle">Тактильний відгук, 2–3px рамки, пігулки та стисливий стан :active під дитячий палець:</p>
+        <h2 class="section-title" data-i18n="components.title">Інтерактивна вітрина компонентів</h2>
+        <p class="section-subtitle" data-i18n="components.subtitle">Тактильний відгук, 2–3px рамки, пігулки та стисливий стан :active під дитячий палець:</p>
       </div>
 
-      <!-- Кнопки -->
+      <!-- Buttons -->
       <div class="card-static" style="margin-bottom: 24px;">
-        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; color: var(--text);">1. Тактильні кнопки (.btn)</h3>
+        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; color: var(--text);" data-i18n="components.buttons.title">1. Тактильні кнопки (.btn)</h3>
         <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
-          <button class="btn btn--primary" onclick="playBeep(520, 'sine'); showToast('Клік на Primary CTA!')">.btn--primary (CTA)</button>
-          <button class="btn btn--accent" onclick="playBeep(650, 'triangle'); showToast('Клік на Accent!')">.btn--accent (Золото)</button>
-          <button class="btn btn--danger" onclick="playBeep(300, 'sawtooth'); showToast('Клік на Danger!')">.btn--danger</button>
-          <button class="btn btn--ghost" onclick="playBeep(440, 'sine'); showToast('Клік на Ghost!')">.btn--ghost</button>
-          <button class="btn btn--sm btn--primary">Розмір .btn--sm</button>
-          <button class="btn btn--lg btn--accent">Розмір .btn--lg</button>
-          <button class="btn btn--icon" title="Сердечко" onclick="playBeep(700, 'sine')">❤️</button>
+          <button class="btn btn--primary" onclick="playBeep(520, 'sine'); showToast(t('toast.cta'))" data-i18n="components.buttons.primary">.btn--primary (CTA)</button>
+          <button class="btn btn--accent" onclick="playBeep(650, 'triangle'); showToast(t('toast.accent'))" data-i18n="components.buttons.accent">.btn--accent (Золото)</button>
+          <button class="btn btn--danger" onclick="playBeep(300, 'sawtooth'); showToast(t('toast.danger'))" data-i18n="components.buttons.danger">.btn--danger</button>
+          <button class="btn btn--ghost" onclick="playBeep(440, 'sine'); showToast(t('toast.ghost'))" data-i18n="components.buttons.ghost">.btn--ghost</button>
+          <button class="btn btn--sm btn--primary" data-i18n="components.buttons.sm">Розмір .btn--sm</button>
+          <button class="btn btn--lg btn--accent" data-i18n="components.buttons.lg">Розмір .btn--lg</button>
+          <button class="btn btn--icon" data-i18n-title="components.buttons.heartTitle" data-i18n-aria-label="components.buttons.heartTitle" title="Сердечко" aria-label="Сердечко" onclick="playBeep(700, 'sine')">❤️</button>
         </div>
       </div>
 
-      <!-- Пігулки та бейджі -->
+      <!-- Pills and badges -->
       <div class="card-static" style="margin-bottom: 24px;">
-        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; color: var(--text);">2. Статусні пігулки (.pill) та чіпи (.chip)</h3>
+        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; color: var(--text);" data-i18n="components.pills.title">2. Статусні пігулки (.pill) та чіпи (.chip)</h3>
         <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 14px;">
-          <span class="pill pill--ok">✅ Перевірено</span>
-          <span class="pill pill--warn">⚠️ 2 деталі без бази</span>
-          <span class="pill pill--danger">⛔ Помилка друку</span>
-          <span class="pill pill--info">ℹ️ 12 збірок</span>
-          <span class="badge badge--new">NEW</span>
-          <span class="badge badge--hot">HOT</span>
-          <span class="badge badge--gold">⭐ 1-4 КЛАС</span>
+          <span class="pill pill--ok" data-i18n="components.pills.ok">✅ Перевірено</span>
+          <span class="pill pill--warn" data-i18n="components.pills.warn">⚠️ 2 деталі без бази</span>
+          <span class="pill pill--danger" data-i18n="components.pills.danger">⛔ Помилка друку</span>
+          <span class="pill pill--info" data-i18n="components.pills.info">ℹ️ 12 збірок</span>
+          <span class="badge badge--new" data-i18n="components.pills.badgeNew">NEW</span>
+          <span class="badge badge--hot" data-i18n="components.pills.badgeHot">HOT</span>
+          <span class="badge badge--gold" data-i18n="components.pills.badgeGold">⭐ 1-4 КЛАС</span>
         </div>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <button class="chip active" onclick="playBeep(400, 'sine')">🎮 Всі квести</button>
-          <button class="chip" onclick="playBeep(450, 'sine')">🤖 Механіка</button>
-          <button class="chip" onclick="playBeep(500, 'sine')">🛰️ Космос</button>
-          <button class="chip" onclick="playBeep(550, 'sine')">🎨 3D-Друк</button>
+          <button class="chip active" onclick="playBeep(400, 'sine')" data-i18n="components.chips.all">🎮 Всі квести</button>
+          <button class="chip" onclick="playBeep(450, 'sine')" data-i18n="components.chips.mechanics">🤖 Механіка</button>
+          <button class="chip" onclick="playBeep(500, 'sine')" data-i18n="components.chips.space">🛰️ Космос</button>
+          <button class="chip" onclick="playBeep(550, 'sine')" data-i18n="components.chips.print3d">🎨 3D-Друк</button>
         </div>
       </div>
 
-      <!-- Картки Roblox-tile -->
+      <!-- Roblox-tile cards -->
       <div class="card-static">
-        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; color: var(--text);">3. Картки завдань Roblox-tile (.card)</h3>
+        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; color: var(--text);" data-i18n="components.cards.title">3. Картки завдань Roblox-tile (.card)</h3>
         <div class="arcade-grid">
           <div class="card" onclick="playBeep(480, 'triangle')">
             <div class="card-img-wrap">
-              <span class="badge badge--hot" style="position: absolute; top: 10px; left: 10px;">POPULAR</span>
-              <div style="font-size: 4rem;">🚀</div>
+              <span class="badge badge--hot" style="position: absolute; top: 10px; left: 10px;" data-i18n="components.cards.shuttle.badge">POPULAR</span>
+              <div style="font-size: 4rem;" aria-hidden="true">🚀</div>
             </div>
             <div class="card-body">
-              <h4 class="card-title">Космічний Шатл</h4>
-              <p class="card-desc">Плавний підйом на ховері translateY(-8px), зелена рамка 3px та м'яка тінь.</p>
+              <h4 class="card-title" data-i18n="components.cards.shuttle.title">Космічний Шатл</h4>
+              <p class="card-desc" data-i18n="components.cards.shuttle.desc">Плавний підйом на ховері translateY(-8px), зелена рамка 3px та м'яка тінь.</p>
               <div class="card-footer">
-                <span class="pill pill--ok">24 кроки</span>
-                <button class="btn btn--primary btn--sm" onclick="event.stopPropagation(); openDemoModal()">Зібрати</button>
+                <span class="pill pill--ok" data-i18n="components.cards.shuttle.pill">24 кроки</span>
+                <button class="btn btn--primary btn--sm" onclick="event.stopPropagation(); openDemoModal()" data-i18n="components.cards.assemble">Зібрати</button>
               </div>
             </div>
           </div>
 
           <div class="card" onclick="playBeep(520, 'triangle')">
             <div class="card-img-wrap">
-              <span class="badge badge--new" style="position: absolute; top: 10px; left: 10px;">NEW</span>
-              <div style="font-size: 4rem;">🤖</div>
+              <span class="badge badge--new" style="position: absolute; top: 10px; left: 10px;" data-i18n="components.cards.balancer.badge">NEW</span>
+              <div style="font-size: 4rem;" aria-hidden="true">🤖</div>
             </div>
             <div class="card-body">
-              <h4 class="card-title">Робо-Балансир</h4>
-              <p class="card-desc">Двоколісний самобалансуючий візок з ультразвуковим датчиком відстані.</p>
+              <h4 class="card-title" data-i18n="components.cards.balancer.title">Робо-Балансир</h4>
+              <p class="card-desc" data-i18n="components.cards.balancer.desc">Двоколісний самобалансуючий візок з ультразвуковим датчиком відстані.</p>
               <div class="card-footer">
-                <span class="pill pill--warn">⭐ 4-6 клас</span>
-                <button class="btn btn--accent btn--sm" onclick="event.stopPropagation(); openDemoModal()">Зібрати</button>
+                <span class="pill pill--warn" data-i18n="components.cards.balancer.pill">⭐ 4-6 клас</span>
+                <button class="btn btn--accent btn--sm" onclick="event.stopPropagation(); openDemoModal()" data-i18n="components.cards.assemble">Зібрати</button>
               </div>
             </div>
           </div>
 
           <div class="card" onclick="playBeep(560, 'triangle')">
             <div class="card-img-wrap">
-              <span class="badge badge--gold" style="position: absolute; top: 10px; left: 10px;">QUEST</span>
-              <div style="font-size: 4rem;">💎</div>
+              <span class="badge badge--gold" style="position: absolute; top: 10px; left: 10px;" data-i18n="components.cards.chest.badge">QUEST</span>
+              <div style="font-size: 4rem;" aria-hidden="true">💎</div>
             </div>
             <div class="card-body">
-              <h4 class="card-title">Скриня Скарбів 3D</h4>
-              <p class="card-desc">Механічний замок з паролем, оптимізований під сопло 0.4 мм 3D-принтера.</p>
+              <h4 class="card-title" data-i18n="components.cards.chest.title">Скриня Скарбів 3D</h4>
+              <p class="card-desc" data-i18n="components.cards.chest.desc">Механічний замок з паролем, оптимізований під сопло 0.4 мм 3D-принтера.</p>
               <div class="card-footer">
-                <span class="pill pill--info">~18 г PLA</span>
-                <button class="btn btn--primary btn--sm" onclick="event.stopPropagation(); openDemoModal()">Зібрати</button>
+                <span class="pill pill--info" data-i18n="components.cards.chest.pill">~18 г PLA</span>
+                <button class="btn btn--primary btn--sm" onclick="event.stopPropagation(); openDemoModal()" data-i18n="components.cards.assemble">Зібрати</button>
               </div>
             </div>
           </div>
@@ -504,16 +557,16 @@
       </div>
     </section>
 
-    <!-- ШВИДКИЙ СТАРТ ДЛЯ РОЗРОБНИКА -->
+    <!-- DEVELOPER QUICKSTART -->
     <section id="quickstart">
       <div class="section-header">
-        <h2 class="section-title">Як підключити до свого сайту за 1 хвилину</h2>
-        <p class="section-subtitle">Просто покладіть `friendly-arcade.css` у свій репозиторій і підключіть один тег:</p>
+        <h2 class="section-title" data-i18n="quickstart.title">Як підключити до свого сайту за 1 хвилину</h2>
+        <p class="section-subtitle" data-i18n-html="quickstart.subtitle">Просто покладіть <code>friendly-arcade.css</code> у свій репозиторій і підключіть один тег:</p>
       </div>
 
       <div class="code-snippet">
-        <button class="btn btn--sm btn--ghost code-copy-btn" onclick="copySnippet()">📋 Скопіювати</button>
-<pre id="snippetText">&lt;!-- 1. Підключення єдиного файлу стилів --&gt;
+        <button class="btn btn--sm btn--ghost code-copy-btn" onclick="copySnippet()" data-i18n="quickstart.copy">📋 Скопіювати</button>
+<pre id="snippetText" data-i18n="quickstart.snippet">&lt;!-- 1. Підключення єдиного файлу стилів --&gt;
 &lt;link rel="stylesheet" href="friendly-arcade.css"&gt;
 
 &lt;!-- 2. Приклад готової аркадної картки --&gt;
@@ -534,21 +587,21 @@
       </div>
     </section>
 
-    <!-- ПРО АВТОРА -->
+    <!-- ABOUT AUTHOR -->
     <section>
       <div class="author-promo-card">
-        <div class="author-avatar">👨‍🏫</div>
+        <div class="author-avatar" aria-hidden="true">👨‍🏫</div>
         <div>
-          <div class="badge badge--gold" style="margin-bottom: 8px;">АВТОР</div>
-          <h2 style="font-size: 1.8rem; font-weight: 900; color: var(--text); margin-bottom: 8px;">Ігор Сівочка (Ihor Sivochka)</h2>
-          <p style="color: var(--text2); font-size: 15px; line-height: 1.6; margin-bottom: 18px; max-width: 800px;">
+          <div class="badge badge--gold" style="margin-bottom: 8px;" data-i18n="author.badge">АВТОР</div>
+          <h2 style="font-size: 1.8rem; font-weight: 900; color: var(--text); margin-bottom: 8px;" data-i18n="author.name">Ігор Сівочка (Ihor Sivochka)</h2>
+          <p style="color: var(--text2); font-size: 15px; line-height: 1.6; margin-bottom: 18px; max-width: 800px;" data-i18n="author.bio">
             Автор відкритого каталогу інструкцій LEGO WeDo 2.0, автономної веб-студії «3D Кузня Чудес» та дизайн-системи Friendly Arcade UI.
           </p>
           <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <a href="https://sivochka.com/" target="_blank" rel="noopener" class="btn btn--primary">
+            <a href="https://sivochka.com/" target="_blank" rel="noopener" class="btn btn--primary" data-i18n="author.siteBtn">
               🌐 Персональний сайт sivochka.com ↗
             </a>
-            <a href="https://github.com/Figarist/friendly-arcade" target="_blank" rel="noopener" class="btn btn--ghost">
+            <a href="https://github.com/Figarist/friendly-arcade" target="_blank" rel="noopener" class="btn btn--ghost" data-i18n="author.repoBtn">
               ⭐ GitHub Репозиторій ↗
             </a>
           </div>
@@ -558,47 +611,498 @@
 
   </main>
 
-  <!-- ДЕМОНСТРАЦІЙНА МОДАЛКА -->
+  <!-- DEMO MODAL -->
   <div class="arcade-modal-backdrop" id="demoModalBackdrop">
     <div class="arcade-modal">
       <div class="arcade-modal-header">
-        <h3 class="arcade-modal-title">🎮 Friendly Arcade Модальне Вікно</h3>
-        <button class="arcade-modal-close" onclick="closeDemoModal()" aria-label="Закрити">&times;</button>
+        <h3 class="arcade-modal-title" data-i18n="modal.title">🎮 Friendly Arcade Модальне Вікно</h3>
+        <button class="arcade-modal-close" onclick="closeDemoModal()" data-i18n-aria-label="modal.close" aria-label="Закрити">&times;</button>
       </div>
       <div class="arcade-modal-body">
-        <p style="margin-bottom: 12px; font-size: 1.05rem; color: var(--text);">
+        <p style="margin-bottom: 12px; font-size: 1.05rem; color: var(--text);" data-i18n="modal.intro">
           Це стандартне доступне вікно системи:
         </p>
         <ul style="padding-left: 20px; line-height: 1.8; color: var(--text2);">
-          <li>Радіус кутів <strong>24px (--r-lg)</strong> із 3px міцною рамкою;</li>
-          <li>Кругла кнопка ✕ (36x36px) з плавним червоним ховером;</li>
-          <li>WCAG AAA контрастність кнопок дій у футері;</li>
-          <li>Автономне блокування скролу та закриття по клавіші <code>Escape</code>.</li>
+          <li data-i18n-html="modal.item1">Радіус кутів <strong>24px (--r-lg)</strong> із 3px міцною рамкою;</li>
+          <li data-i18n="modal.item2">Кругла кнопка ✕ (36x36px) з плавним червоним ховером;</li>
+          <li data-i18n="modal.item3">WCAG AAA контрастність кнопок дій у футері;</li>
+          <li data-i18n-html="modal.item4">Автономне блокування скролу та закриття по клавіші <code>Escape</code>.</li>
         </ul>
       </div>
       <div class="arcade-modal-footer">
-        <button class="btn btn--ghost" onclick="closeDemoModal()">Закрити</button>
-        <button class="btn btn--primary" onclick="showToast('🎉 Збережено успішно!'); closeDemoModal();">Прийняти</button>
+        <button class="btn btn--ghost" onclick="closeDemoModal()" data-i18n="modal.close">Закрити</button>
+        <button class="btn btn--primary" onclick="showToast(t('toast.saved')); closeDemoModal();" data-i18n="modal.accept">Прийняти</button>
       </div>
     </div>
   </div>
 
-  <!-- ТОСТ -->
+  <!-- TOAST -->
   <div class="arcade-toast" id="toast">
-    <span>✨</span>
-    <span id="toastMsg">Повідомлення</span>
+    <span aria-hidden="true">✨</span>
+    <span id="toastMsg" data-i18n="toast.default">Повідомлення</span>
   </div>
 
-  <!-- ВБУДОВАНИЙ АУДІО-СИНТЕЗАТОР (0 ЗАЛЕЖНОСТЕЙ, ЧИСТИЙ WEB AUDIO API) -->
+  <!-- ZERO-DEPENDENCY I18N, THEME TOGGLE & WEB AUDIO SYNTH -->
   <script>
-    // Світла / темна тема: data-theme на <html>, вибір пам'ятається в браузері
+    // I18N_DICTIONARY_START
+    const I18N = {
+      uk: {
+        'meta.title': '🎮 Friendly Arcade UI — Відкрита дизайн-система для дитячих EdTech застосунків',
+        'meta.description': 'Легкий, автономний Vanilla CSS UI-фреймворк для дитячих та навчальних веб-проєктів від викладача робототехніки та IT Ігоря Сівочки.',
+        'meta.author': 'Ігор Сівочка',
+        'header.subtitle': 'Дизайн-система EdTech',
+        'header.langLabel': 'Вибір мови',
+        'header.star': '⭐ Зірка на GitHub',
+        'theme.toLight': '☀️ Світла тема',
+        'theme.toDark': '🌙 Темна тема',
+        'hero.badge': 'v2.0.0 РЕЛІЗ • БЕЗ ЗАЛЕЖНОСТЕЙ',
+        'hero.title': 'Дизайн-система для <span>щасливих дітей</span> та швидких викладачів',
+        'hero.desc': '<strong>Friendly Arcade UI</strong> — це автономний, 100% офлайн Vanilla CSS фреймворк для дитячих освітніх ігор, тренажерів, STEM-каталогів та 3D-студій. Розроблено викладачем робототехніки для реальних уроків, планшетів і проекторів.',
+        'hero.ctaStart': '⚡ Швидкий старт (1 хв)',
+        'hero.ctaSound': '🔊 Тест звуку',
+        'hero.ctaComponents': '🧩 Каталог компонентів',
+        'cases.title': 'Перевірено на реальних учнях',
+        'cases.subtitle': 'Ця дизайн-система живить три освітні продукти, якими щодня користуються сотні дітей:',
+        'cases.open': 'Відкрити ↗',
+        'cases.lego.badge': 'PWA • 100% ОФЛАЙН',
+        'cases.lego.title': 'LEGO WeDo 2.0 Catalog',
+        'cases.lego.desc': 'Популярний безкоштовний каталог інструкцій для вчителів робототехніки та STEM-шкіл. Мультимовність, Gacha-рулетка, фільтри та пошук без Інтернету.',
+        'cases.studio3d.badge': '3D CAD • THREE.JS',
+        'cases.studio3d.title': '3D Кузня Чудес (3D Club Studio)',
+        'cases.studio3d.desc': 'Автономна шкільна 3D-вебстудія моделювання для учнів 2–6 класів. Генератори вокселів, оптичних ілюзій, механіки та експорт print-safe STL.',
+        'cases.bouncy.badge': 'PWA • СВІТЛА ТЕМА',
+        'cases.bouncy.title': 'Тихий клас',
+        'cases.bouncy.desc': 'Шумомір і таймер тиші для уроку на смарт-дошці: сплячі монстрики, банка зірок для класу, світлий режим для яскравого кабінету.',
+        'palette.title': 'Математично вивірена палітра (WCAG AAA)',
+        'palette.subtitle': 'Жодного сліпого білого тексту на салатовому чи жовтому тлі. Клікніть на картку, щоб скопіювати токен:',
+        'components.title': 'Інтерактивна вітрина компонентів',
+        'components.subtitle': 'Тактильний відгук, 2–3px рамки, пігулки та стисливий стан :active під дитячий палець:',
+        'components.buttons.title': '1. Тактильні кнопки (.btn)',
+        'components.buttons.primary': '.btn--primary (CTA)',
+        'components.buttons.accent': '.btn--accent (Золото)',
+        'components.buttons.danger': '.btn--danger',
+        'components.buttons.ghost': '.btn--ghost',
+        'components.buttons.sm': 'Розмір .btn--sm',
+        'components.buttons.lg': 'Розмір .btn--lg',
+        'components.buttons.heartTitle': 'Сердечко',
+        'components.pills.title': '2. Статусні пігулки (.pill) та чіпи (.chip)',
+        'components.pills.ok': '✅ Перевірено',
+        'components.pills.warn': '⚠️ 2 деталі без бази',
+        'components.pills.danger': '⛔ Помилка друку',
+        'components.pills.info': 'ℹ️ 12 збірок',
+        'components.pills.badgeNew': 'NEW',
+        'components.pills.badgeHot': 'HOT',
+        'components.pills.badgeGold': '⭐ 1-4 КЛАС',
+        'components.chips.all': '🎮 Всі квести',
+        'components.chips.mechanics': '🤖 Механіка',
+        'components.chips.space': '🛰️ Космос',
+        'components.chips.print3d': '🎨 3D-Друк',
+        'components.cards.title': '3. Картки завдань Roblox-tile (.card)',
+        'components.cards.assemble': 'Зібрати',
+        'components.cards.shuttle.badge': 'ПОПУЛЯРНЕ',
+        'components.cards.shuttle.title': 'Космічний Шатл',
+        'components.cards.shuttle.desc': 'Плавний підйом на ховері translateY(-8px), зелена рамка 3px та м\'яка тінь.',
+        'components.cards.shuttle.pill': '24 кроки',
+        'components.cards.balancer.badge': 'НОВЕ',
+        'components.cards.balancer.title': 'Робо-Балансир',
+        'components.cards.balancer.desc': 'Двоколісний самобалансуючий візок з ультразвуковим датчиком відстані.',
+        'components.cards.balancer.pill': '⭐ 4-6 клас',
+        'components.cards.chest.badge': 'КВЕСТ',
+        'components.cards.chest.title': 'Скриня Скарбів 3D',
+        'components.cards.chest.desc': 'Механічний замок з паролем, оптимізований під сопло 0.4 мм 3D-принтера.',
+        'components.cards.chest.pill': '~18 г PLA',
+        'quickstart.title': 'Як підключити до свого сайту за 1 хвилину',
+        'quickstart.subtitle': 'Просто покладіть <code>friendly-arcade.css</code> у свій репозиторій і підключіть один тег:',
+        'quickstart.copy': '📋 Скопіювати',
+        'quickstart.snippet': '<!-- 1. Підключення єдиного файлу стилів -->\n<link rel="stylesheet" href="friendly-arcade.css">\n\n<!-- 2. Приклад готової аркадної картки -->\n<div class="card">\n  <div class="card-img-wrap">\n    <span class="badge badge--new">NEW</span>\n    <img src="model.png" alt="LEGO Модель">\n  </div>\n  <div class="card-body">\n    <h3 class="card-title">Робот-Павук 3000</h3>\n    <p class="card-desc">Покрокова інструкція для уроків робототехніки.</p>\n    <div class="card-footer">\n      <span class="pill pill--ok">⭐ 2-4 клас</span>\n      <button class="btn btn--primary btn--sm">Відкрити інструкцію</button>\n    </div>\n  </div>\n</div>',
+        'author.badge': 'АВТОР',
+        'author.name': 'Ігор Сівочка (Ihor Sivochka)',
+        'author.bio': 'Автор відкритого каталогу інструкцій LEGO WeDo 2.0, автономної веб-студії «3D Кузня Чудес» та дизайн-системи Friendly Arcade UI.',
+        'author.siteBtn': '🌐 Персональний сайт sivochka.com ↗',
+        'author.repoBtn': '⭐ GitHub Репозиторій ↗',
+        'modal.title': '🎮 Friendly Arcade Модальне Вікно',
+        'modal.intro': 'Це стандартне доступне вікно системи:',
+        'modal.item1': 'Радіус кутів <strong>24px (--r-lg)</strong> із 3px міцною рамкою;',
+        'modal.item2': 'Кругла кнопка ✕ (36x36px) з плавним червоним ховером;',
+        'modal.item3': 'WCAG AAA контрастність кнопок дій у футері;',
+        'modal.item4': 'Автономне блокування скролу та закриття по клавіші <code>Escape</code>.',
+        'modal.close': 'Закрити',
+        'modal.accept': 'Прийняти',
+        'toast.default': 'Повідомлення',
+        'toast.sound': '🎉 Увімкнено аркадний звук!',
+        'toast.cta': 'Клік на Primary CTA!',
+        'toast.accent': 'Клік на Accent!',
+        'toast.danger': 'Клік на Danger!',
+        'toast.ghost': 'Клік на Ghost!',
+        'toast.saved': '🎉 Збережено успішно!',
+        'toast.copiedToken': '📋 Скопійовано: var({token}) [{hex}]',
+        'toast.copiedSnippet': '📋 Код успішно скопійовано у буфер!'
+      },
+      en: {
+        'meta.title': '🎮 Friendly Arcade UI — Open Design System for Kids EdTech Apps',
+        'meta.description': 'Lightweight, zero-dependency Vanilla CSS UI framework for kids and educational web projects by robotics and IT teacher Ihor Sivochka.',
+        'meta.author': 'Ihor Sivochka',
+        'header.subtitle': 'EdTech Design System',
+        'header.langLabel': 'Language selector',
+        'header.star': '⭐ Star on GitHub',
+        'theme.toLight': '☀️ Light theme',
+        'theme.toDark': '🌙 Dark theme',
+        'hero.badge': 'v2.0.0 RELEASE • ZERO DEPENDENCIES',
+        'hero.title': 'Design system for <span>happy kids</span> and fast teachers',
+        'hero.desc': '<strong>Friendly Arcade UI</strong> is a standalone, 100% offline Vanilla CSS framework for kids\' educational games, trainers, STEM catalogs, and 3D studios. Built by a robotics teacher for real lessons, tablets, and projectors.',
+        'hero.ctaStart': '⚡ Quick Start (1 min)',
+        'hero.ctaSound': '🔊 Sound Test',
+        'hero.ctaComponents': '🧩 Component Catalog',
+        'cases.title': 'Battle-tested with real students',
+        'cases.subtitle': 'This design system powers three educational products used daily by hundreds of children:',
+        'cases.open': 'Open ↗',
+        'cases.lego.badge': 'PWA • 100% OFFLINE',
+        'cases.lego.title': 'LEGO WeDo 2.0 Catalog',
+        'cases.lego.desc': 'Popular free building instruction catalog for robotics teachers and STEM schools. Multilingual, Gacha roulette, filters, and search with no internet required.',
+        'cases.studio3d.badge': '3D CAD • THREE.JS',
+        'cases.studio3d.title': '3D Wonder Forge (3D Club Studio)',
+        'cases.studio3d.desc': 'Offline school 3D modeling web studio for grades 2–6. Voxel, optical illusion, and mechanics generators with print-safe STL export.',
+        'cases.bouncy.badge': 'PWA • LIGHT THEME',
+        'cases.bouncy.title': 'Quiet Classroom',
+        'cases.bouncy.desc': 'Classroom noise meter and quiet timer for smartboards: sleeping monsters, class star jar, and a bright light theme for sunlit rooms.',
+        'palette.title': 'Mathematically verified palette (WCAG AAA)',
+        'palette.subtitle': 'No unreadable white text on lime or yellow backgrounds. Click any card to copy its token:',
+        'components.title': 'Interactive Component Showcase',
+        'components.subtitle': 'Tactile feedback, 2–3px borders, pills, and squishy :active states sized for kids\' fingers:',
+        'components.buttons.title': '1. Tactile Buttons (.btn)',
+        'components.buttons.primary': '.btn--primary (CTA)',
+        'components.buttons.accent': '.btn--accent (Gold)',
+        'components.buttons.danger': '.btn--danger',
+        'components.buttons.ghost': '.btn--ghost',
+        'components.buttons.sm': 'Size .btn--sm',
+        'components.buttons.lg': 'Size .btn--lg',
+        'components.buttons.heartTitle': 'Heart',
+        'components.pills.title': '2. Status Pills (.pill) & Chips (.chip)',
+        'components.pills.ok': '✅ Verified',
+        'components.pills.warn': '⚠️ 2 parts without base',
+        'components.pills.danger': '⛔ Print error',
+        'components.pills.info': 'ℹ️ 12 builds',
+        'components.pills.badgeNew': 'NEW',
+        'components.pills.badgeHot': 'HOT',
+        'components.pills.badgeGold': '⭐ GRADES 1-4',
+        'components.chips.all': '🎮 All quests',
+        'components.chips.mechanics': '🤖 Mechanics',
+        'components.chips.space': '🛰️ Space',
+        'components.chips.print3d': '🎨 3D Printing',
+        'components.cards.title': '3. Roblox-tile Quest Cards (.card)',
+        'components.cards.assemble': 'Build',
+        'components.cards.shuttle.badge': 'POPULAR',
+        'components.cards.shuttle.title': 'Space Shuttle',
+        'components.cards.shuttle.desc': 'Smooth hover lift translateY(-8px), 3px green border, and soft glow shadow.',
+        'components.cards.shuttle.pill': '24 steps',
+        'components.cards.balancer.badge': 'NEW',
+        'components.cards.balancer.title': 'Robo-Balancer',
+        'components.cards.balancer.desc': 'Two-wheeled self-balancing cart with an ultrasonic distance sensor.',
+        'components.cards.balancer.pill': '⭐ Grades 4-6',
+        'components.cards.chest.badge': 'QUEST',
+        'components.cards.chest.title': '3D Treasure Chest',
+        'components.cards.chest.desc': 'Mechanical combination lock optimized for a 0.4 mm 3D printer nozzle.',
+        'components.cards.chest.pill': '~18 g PLA',
+        'quickstart.title': 'Add to your site in 1 minute',
+        'quickstart.subtitle': 'Just drop <code>friendly-arcade.css</code> into your repository and link a single stylesheet:',
+        'quickstart.copy': '📋 Copy',
+        'quickstart.snippet': '<!-- 1. Include the single stylesheet -->\n<link rel="stylesheet" href="friendly-arcade.css">\n\n<!-- 2. Example arcade quest card -->\n<div class="card">\n  <div class="card-img-wrap">\n    <span class="badge badge--new">NEW</span>\n    <img src="model.png" alt="LEGO Model">\n  </div>\n  <div class="card-body">\n    <h3 class="card-title">Spider-Bot 3000</h3>\n    <p class="card-desc">Step-by-step instructions for robotics lessons.</p>\n    <div class="card-footer">\n      <span class="pill pill--ok">⭐ Grades 2-4</span>\n      <button class="btn btn--primary btn--sm">Open instructions</button>\n    </div>\n  </div>\n</div>',
+        'author.badge': 'AUTHOR',
+        'author.name': 'Ihor Sivochka',
+        'author.bio': 'Creator of the open LEGO WeDo 2.0 instruction catalog, the offline web studio "3D Wonder Forge", and the Friendly Arcade UI design system.',
+        'author.siteBtn': '🌐 Personal site sivochka.com ↗',
+        'author.repoBtn': '⭐ GitHub Repository ↗',
+        'modal.title': '🎮 Friendly Arcade Modal',
+        'modal.intro': 'This is the standard accessible dialog of the system:',
+        'modal.item1': 'Corner radius <strong>24px (--r-lg)</strong> with a sturdy 3px border;',
+        'modal.item2': 'Round ✕ button (36x36px) with a smooth red hover state;',
+        'modal.item3': 'WCAG AAA contrast on footer action buttons;',
+        'modal.item4': 'Standalone scroll lock and closing via the <code>Escape</code> key.',
+        'modal.close': 'Close',
+        'modal.accept': 'Accept',
+        'toast.default': 'Notification',
+        'toast.sound': '🎉 Arcade sound enabled!',
+        'toast.cta': 'Clicked Primary CTA!',
+        'toast.accent': 'Clicked Accent!',
+        'toast.danger': 'Clicked Danger!',
+        'toast.ghost': 'Clicked Ghost!',
+        'toast.saved': '🎉 Saved successfully!',
+        'toast.copiedToken': '📋 Copied: var({token}) [{hex}]',
+        'toast.copiedSnippet': '📋 Code copied to clipboard!'
+      },
+      pl: {
+        'meta.title': '🎮 Friendly Arcade UI — Otwarty system projektowy dla dziecięcych aplikacji EdTech',
+        'meta.description': 'Lekki, autonomiczny framework Vanilla CSS UI dla dziecięcych i edukacyjnych projektów webowych autorstwa nauczyciela robotyki i IT Ihora Siwoczki.',
+        'meta.author': 'Ihor Siwoczka',
+        'header.subtitle': 'System projektowy EdTech',
+        'header.langLabel': 'Wybór języka',
+        'header.star': '⭐ Gwiazdka na GitHub',
+        'theme.toLight': '☀️ Jasny motyw',
+        'theme.toDark': '🌙 Ciemny motyw',
+        'hero.badge': 'v2.0.0 WYDANIE • ZERO ZALEŻNOŚCI',
+        'hero.title': 'System projektowy dla <span>szczęśliwych dzieci</span> i szybkich nauczycieli',
+        'hero.desc': '<strong>Friendly Arcade UI</strong> to autonomiczny, w 100% offline framework Vanilla CSS dla dziecięcych gier edukacyjnych, trenażerów, katalogów STEM i studiów 3D. Stworzony przez nauczyciela robotyki do prawdziwych lekcji, tabletów i projektorów.',
+        'hero.ctaStart': '⚡ Szybki start (1 min)',
+        'hero.ctaSound': '🔊 Test dźwięku',
+        'hero.ctaComponents': '🧩 Katalog komponentów',
+        'cases.title': 'Sprawdzone na prawdziwych uczniach',
+        'cases.subtitle': 'Ten system projektowy napędza trzy produkty edukacyjne, z których codziennie korzystają setki dzieci:',
+        'cases.open': 'Otwórz ↗',
+        'cases.lego.badge': 'PWA • 100% OFFLINE',
+        'cases.lego.title': 'LEGO WeDo 2.0 Catalog',
+        'cases.lego.desc': 'Popularny darmowy katalog instrukcji dla nauczycieli robotyki i szkół STEM. Wielojęzyczność, ruletka Gacha, filtry i wyszukiwanie bez Internetu.',
+        'cases.studio3d.badge': '3D CAD • THREE.JS',
+        'cases.studio3d.title': 'Kuźnia Cudów 3D (3D Club Studio)',
+        'cases.studio3d.desc': 'Autonomiczne szkolne studio modelowania 3D w przeglądarce dla uczniów klas 2–6. Generatory wokseli, iluzji optycznych, mechaniki i eksport print-safe STL.',
+        'cases.bouncy.badge': 'PWA • JASNY MOTYW',
+        'cases.bouncy.title': 'Cicha klasa',
+        'cases.bouncy.desc': 'Miernik hałasu i minutnik ciszy na lekcję na tablicy interaktywnej: śpiące potworki, słoik gwiazdek dla klasy, jasny tryb do słonecznej sali.',
+        'palette.title': 'Matematycznie dobrana paleta (WCAG AAA)',
+        'palette.subtitle': 'Zero nieczytelnego białego tekstu na limonkowym czy żółtym tle. Kliknij kartę, aby skopiować token:',
+        'components.title': 'Interaktywna prezentacja komponentów',
+        'components.subtitle': 'Dotykowa odpowiedź, ramki 2–3px, pigułki i sprężysty stan :active dopasowany do dziecięcego palca:',
+        'components.buttons.title': '1. Przyciski dotykowe (.btn)',
+        'components.buttons.primary': '.btn--primary (CTA)',
+        'components.buttons.accent': '.btn--accent (Złoty)',
+        'components.buttons.danger': '.btn--danger',
+        'components.buttons.ghost': '.btn--ghost',
+        'components.buttons.sm': 'Rozmiar .btn--sm',
+        'components.buttons.lg': 'Rozmiar .btn--lg',
+        'components.buttons.heartTitle': 'Serduszko',
+        'components.pills.title': '2. Pigułki statusu (.pill) i chipy (.chip)',
+        'components.pills.ok': '✅ Zweryfikowano',
+        'components.pills.warn': '⚠️ 2 elementy bez bazy',
+        'components.pills.danger': '⛔ Błąd druku',
+        'components.pills.info': 'ℹ️ 12 konstrukcji',
+        'components.pills.badgeNew': 'NEW',
+        'components.pills.badgeHot': 'HOT',
+        'components.pills.badgeGold': '⭐ KLASY 1-4',
+        'components.chips.all': '🎮 Wszystkie misje',
+        'components.chips.mechanics': '🤖 Mechanika',
+        'components.chips.space': '🛰️ Kosmos',
+        'components.chips.print3d': '🎨 Druk 3D',
+        'components.cards.title': '3. Karty zadań Roblox-tile (.card)',
+        'components.cards.assemble': 'Zbuduj',
+        'components.cards.shuttle.badge': 'POPULARNE',
+        'components.cards.shuttle.title': 'Wahadłowiec Kosmiczny',
+        'components.cards.shuttle.desc': 'Płynne uniesienie po najechaniu translateY(-8px), zielona ramka 3px i miękki cień.',
+        'components.cards.shuttle.pill': '24 kroki',
+        'components.cards.balancer.badge': 'NOWE',
+        'components.cards.balancer.title': 'Robo-Balanser',
+        'components.cards.balancer.desc': 'Dwukołowy samobalansujący wózek z ultradźwiękowym czujnikiem odległości.',
+        'components.cards.balancer.pill': '⭐ Klasy 4-6',
+        'components.cards.chest.badge': 'MISJA',
+        'components.cards.chest.title': 'Skrzynia Skarbów 3D',
+        'components.cards.chest.desc': 'Mechaniczny zamek szyfrowy zoptymalizowany pod dyszę 0.4 mm drukarki 3D.',
+        'components.cards.chest.pill': '~18 g PLA',
+        'quickstart.title': 'Jak podłączyć do swojej strony w 1 minutę',
+        'quickstart.subtitle': 'Po prostu umieść <code>friendly-arcade.css</code> w swoim repozytorium i dodaj jeden znacznik:',
+        'quickstart.copy': '📋 Kopiuj',
+        'quickstart.snippet': '<!-- 1. Podłączenie pojedynczego pliku stylów -->\n<link rel="stylesheet" href="friendly-arcade.css">\n\n<!-- 2. Przykład gotowej karty zręcznościowej -->\n<div class="card">\n  <div class="card-img-wrap">\n    <span class="badge badge--new">NEW</span>\n    <img src="model.png" alt="Model LEGO">\n  </div>\n  <div class="card-body">\n    <h3 class="card-title">Robot-Pająk 3000</h3>\n    <p class="card-desc">Instrukcja krok po kroku na lekcje robotyki.</p>\n    <div class="card-footer">\n      <span class="pill pill--ok">⭐ Klasy 2-4</span>\n      <button class="btn btn--primary btn--sm">Otwórz instrukcję</button>\n    </div>\n  </div>\n</div>',
+        'author.badge': 'AUTOR',
+        'author.name': 'Ihor Siwoczka (Ihor Sivochka)',
+        'author.bio': 'Twórca otwartego katalogu instrukcji LEGO WeDo 2.0, autonomicznego studia webowego „Kuźnia Cudów 3D” oraz systemu projektowego Friendly Arcade UI.',
+        'author.siteBtn': '🌐 Strona osobista sivochka.com ↗',
+        'author.repoBtn': '⭐ Repozytorium GitHub ↗',
+        'modal.title': '🎮 Okno modalne Friendly Arcade',
+        'modal.intro': 'To jest standardowe, dostępne okno dialogowe systemu:',
+        'modal.item1': 'Promień zaokrąglenia <strong>24px (--r-lg)</strong> z solidną ramką 3px;',
+        'modal.item2': 'Okrągły przycisk ✕ (36x36px) z płynnym czerwonym podświetleniem;',
+        'modal.item3': 'Kontrast WCAG AAA dla przycisków akcji w stopce;',
+        'modal.item4': 'Autonomiczna blokada przewijania i zamykanie klawiszem <code>Escape</code>.',
+        'modal.close': 'Zamknij',
+        'modal.accept': 'Akceptuj',
+        'toast.default': 'Powiadomienie',
+        'toast.sound': '🎉 Dźwięk zręcznościowy włączony!',
+        'toast.cta': 'Kliknięto Primary CTA!',
+        'toast.accent': 'Kliknięto Accent!',
+        'toast.danger': 'Kliknięto Danger!',
+        'toast.ghost': 'Kliknięto Ghost!',
+        'toast.saved': '🎉 Zapisano pomyślnie!',
+        'toast.copiedToken': '📋 Skopiowano: var({token}) [{hex}]',
+        'toast.copiedSnippet': '📋 Kod skopiowano do schowka!'
+      },
+      ru: {
+        'meta.title': '🎮 Friendly Arcade UI — Открытая дизайн-система для детских EdTech-приложений',
+        'meta.description': 'Лёгкий, автономный Vanilla CSS UI-фреймворк для детских и учебных веб-проектов от преподавателя робототехники и IT Игоря Сивочки.',
+        'meta.author': 'Игорь Сивочка',
+        'header.subtitle': 'Дизайн-система EdTech',
+        'header.langLabel': 'Выбор языка',
+        'header.star': '⭐ Звезда на GitHub',
+        'theme.toLight': '☀️ Светлая тема',
+        'theme.toDark': '🌙 Тёмная тема',
+        'hero.badge': 'v2.0.0 РЕЛИЗ • БЕЗ ЗАВИСИМОСТЕЙ',
+        'hero.title': 'Дизайн-система для <span>счастливых детей</span> и быстрых преподавателей',
+        'hero.desc': '<strong>Friendly Arcade UI</strong> — это автономный, 100% офлайн Vanilla CSS фреймворк для детских образовательных игр, тренажёров, STEM-каталогов и 3D-студий. Разработано преподавателем робототехники для реальных уроков, планшетов и проекторов.',
+        'hero.ctaStart': '⚡ Быстрый старт (1 мин)',
+        'hero.ctaSound': '🔊 Тест звука',
+        'hero.ctaComponents': '🧩 Каталог компонентов',
+        'cases.title': 'Проверено на реальных учениках',
+        'cases.subtitle': 'Эта дизайн-система питает три образовательных продукта, которыми ежедневно пользуются сотни детей:',
+        'cases.open': 'Открыть ↗',
+        'cases.lego.badge': 'PWA • 100% ОФЛАЙН',
+        'cases.lego.title': 'LEGO WeDo 2.0 Catalog',
+        'cases.lego.desc': 'Популярный бесплатный каталог инструкций для учителей робототехники и STEM-школ. Мультиязычность, Gacha-рулетка, фильтры и поиск без Интернета.',
+        'cases.studio3d.badge': '3D CAD • THREE.JS',
+        'cases.studio3d.title': '3D Кузня Чудес (3D Club Studio)',
+        'cases.studio3d.desc': 'Автономная школьная 3D-веб-студия моделирования для учеников 2–6 классов. Генераторы вокселей, оптических иллюзий, механики и экспорт print-safe STL.',
+        'cases.bouncy.badge': 'PWA • СВЕТЛАЯ ТЕМА',
+        'cases.bouncy.title': 'Тихий класс',
+        'cases.bouncy.desc': 'Шумомер и таймер тишины для урока на смарт-доске: спящие монстрики, банка звёзд для класса, светлый режим для яркого кабинета.',
+        'palette.title': 'Математически выверенная палитра (WCAG AAA)',
+        'palette.subtitle': 'Никакого слепого белого текста на салатовом или жёлтом фоне. Нажмите на карточку, чтобы скопировать токен:',
+        'components.title': 'Интерактивная витрина компонентов',
+        'components.subtitle': 'Тактильный отклик, рамки 2–3px, пилюли и сжимаемое состояние :active под детский палец:',
+        'components.buttons.title': '1. Тактильные кнопки (.btn)',
+        'components.buttons.primary': '.btn--primary (CTA)',
+        'components.buttons.accent': '.btn--accent (Золото)',
+        'components.buttons.danger': '.btn--danger',
+        'components.buttons.ghost': '.btn--ghost',
+        'components.buttons.sm': 'Размер .btn--sm',
+        'components.buttons.lg': 'Размер .btn--lg',
+        'components.buttons.heartTitle': 'Сердечко',
+        'components.pills.title': '2. Статусные пилюли (.pill) и чипы (.chip)',
+        'components.pills.ok': '✅ Проверено',
+        'components.pills.warn': '⚠️ 2 детали без базы',
+        'components.pills.danger': '⛔ Ошибка печати',
+        'components.pills.info': 'ℹ️ 12 сборок',
+        'components.pills.badgeNew': 'NEW',
+        'components.pills.badgeHot': 'HOT',
+        'components.pills.badgeGold': '⭐ 1-4 КЛАСС',
+        'components.chips.all': '🎮 Все квесты',
+        'components.chips.mechanics': '🤖 Механика',
+        'components.chips.space': '🛰️ Космос',
+        'components.chips.print3d': '🎨 3D-Печать',
+        'components.cards.title': '3. Карточки заданий Roblox-tile (.card)',
+        'components.cards.assemble': 'Собрать',
+        'components.cards.shuttle.badge': 'ПОПУЛЯРНОЕ',
+        'components.cards.shuttle.title': 'Космический Шаттл',
+        'components.cards.shuttle.desc': 'Плавный подъём при наведении translateY(-8px), зелёная рамка 3px и мягкая тень.',
+        'components.cards.shuttle.pill': '24 шага',
+        'components.cards.balancer.badge': 'НОВОЕ',
+        'components.cards.balancer.title': 'Робо-Балансир',
+        'components.cards.balancer.desc': 'Двухколёсная самобалансирующаяся тележка с ультразвуковым датчиком расстояния.',
+        'components.cards.balancer.pill': '⭐ 4-6 класс',
+        'components.cards.chest.badge': 'КВЕСТ',
+        'components.cards.chest.title': 'Сундук Сокровищ 3D',
+        'components.cards.chest.desc': 'Механический замок с паролем, оптимизированный под сопло 0.4 мм 3D-принтера.',
+        'components.cards.chest.pill': '~18 г PLA',
+        'quickstart.title': 'Как подключить к своему сайту за 1 минуту',
+        'quickstart.subtitle': 'Просто положите <code>friendly-arcade.css</code> в свой репозиторий и подключите один тег:',
+        'quickstart.copy': '📋 Скопировать',
+        'quickstart.snippet': '<!-- 1. Подключение единого файла стилей -->\n<link rel="stylesheet" href="friendly-arcade.css">\n\n<!-- 2. Пример готовой аркадной карточки -->\n<div class="card">\n  <div class="card-img-wrap">\n    <span class="badge badge--new">NEW</span>\n    <img src="model.png" alt="LEGO Модель">\n  </div>\n  <div class="card-body">\n    <h3 class="card-title">Робот-Паук 3000</h3>\n    <p class="card-desc">Пошаговая инструкция для уроков робототехники.</p>\n    <div class="card-footer">\n      <span class="pill pill--ok">⭐ 2-4 класс</span>\n      <button class="btn btn--primary btn--sm">Открыть инструкцию</button>\n    </div>\n  </div>\n</div>',
+        'author.badge': 'АВТОР',
+        'author.name': 'Игорь Сивочка (Ihor Sivochka)',
+        'author.bio': 'Автор открытого каталога инструкций LEGO WeDo 2.0, автономной веб-студии «3D Кузня Чудес» и дизайн-системы Friendly Arcade UI.',
+        'author.siteBtn': '🌐 Персональный сайт sivochka.com ↗',
+        'author.repoBtn': '⭐ GitHub Репозиторий ↗',
+        'modal.title': '🎮 Friendly Arcade Модальное Окно',
+        'modal.intro': 'Это стандартное доступное окно системы:',
+        'modal.item1': 'Радиус углов <strong>24px (--r-lg)</strong> с прочной рамкой 3px;',
+        'modal.item2': 'Круглая кнопка ✕ (36x36px) с плавным красным ховером;',
+        'modal.item3': 'WCAG AAA контрастность кнопок действий в футере;',
+        'modal.item4': 'Автономная блокировка скролла и закрытие по клавише <code>Escape</code>.',
+        'modal.close': 'Закрыть',
+        'modal.accept': 'Принять',
+        'toast.default': 'Уведомление',
+        'toast.sound': '🎉 Включён аркадный звук!',
+        'toast.cta': 'Клик по Primary CTA!',
+        'toast.accent': 'Клик по Accent!',
+        'toast.danger': 'Клик по Danger!',
+        'toast.ghost': 'Клик по Ghost!',
+        'toast.saved': '🎉 Сохранено успешно!',
+        'toast.copiedToken': '📋 Скопировано: var({token}) [{hex}]',
+        'toast.copiedSnippet': '📋 Код успешно скопирован в буфер!'
+      }
+    };
+    // I18N_DICTIONARY_END
+
+    const SUPPORTED_LANGS = ['uk', 'en', 'pl', 'ru'];
+    let currentLang = 'uk';
+
+    function t(key, vars = {}) {
+      const dict = I18N[currentLang] || I18N.uk;
+      let str = dict[key] ?? I18N.uk[key] ?? key;
+      for (const [k, v] of Object.entries(vars)) {
+        str = str.replaceAll(`{${k}}`, v);
+      }
+      return str;
+    }
+
+    function updateThemeButtonLabel() {
+      const btn = document.getElementById('theme-toggle');
+      const isLight = document.documentElement.dataset.theme === 'light';
+      btn.setAttribute('aria-pressed', String(isLight));
+      btn.textContent = t(isLight ? 'theme.toDark' : 'theme.toLight');
+    }
+
+    function applyLanguage(lang, persist = true) {
+      if (!SUPPORTED_LANGS.includes(lang)) lang = 'uk';
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        el.textContent = t(el.dataset.i18n);
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+        el.innerHTML = t(el.dataset.i18nHtml);
+      });
+      document.querySelectorAll('[data-i18n-title]').forEach((el) => {
+        el.setAttribute('title', t(el.dataset.i18nTitle));
+      });
+      document.querySelectorAll('[data-i18n-aria-label]').forEach((el) => {
+        el.setAttribute('aria-label', t(el.dataset.i18nAriaLabel));
+      });
+      document.querySelectorAll('[data-i18n-content]').forEach((el) => {
+        el.setAttribute('content', t(el.dataset.i18nContent));
+      });
+
+      document.querySelectorAll('.lang-btn').forEach((btn) => {
+        const active = btn.dataset.lang === lang;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-pressed', String(active));
+      });
+
+      updateThemeButtonLabel();
+
+      if (persist) {
+        try { localStorage.setItem('fa-lang', lang); } catch {}
+      }
+    }
+
+    (function initLanguage() {
+      let initial = null;
+      try {
+        const urlLang = new URLSearchParams(window.location.search).get('lang');
+        if (SUPPORTED_LANGS.includes(urlLang)) initial = urlLang;
+      } catch {}
+      if (!initial) {
+        try {
+          const saved = localStorage.getItem('fa-lang');
+          if (SUPPORTED_LANGS.includes(saved)) initial = saved;
+        } catch {}
+      }
+      if (!initial) {
+        const nav = (navigator.language || '').slice(0, 2).toLowerCase();
+        if (SUPPORTED_LANGS.includes(nav)) initial = nav;
+      }
+      applyLanguage(initial || 'uk', false);
+
+      document.querySelectorAll('.lang-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          playBeep(520, 'sine');
+          applyLanguage(btn.dataset.lang, true);
+        });
+      });
+    })();
+
+    // Light / dark theme: data-theme on <html>, choice persisted in localStorage
     (function () {
       const root = document.documentElement;
       const btn = document.getElementById('theme-toggle');
       const apply = (theme) => {
         if (theme === 'light') root.dataset.theme = 'light'; else delete root.dataset.theme;
-        btn.setAttribute('aria-pressed', String(theme === 'light'));
-        btn.textContent = theme === 'light' ? '🌙 Темна тема' : '☀️ Світла тема';
+        updateThemeButtonLabel();
       };
       let saved = null;
       try { saved = localStorage.getItem('fa-theme'); } catch {}
@@ -651,7 +1155,7 @@
       setTimeout(() => playBeep(880, 'sine', 0.25), 240);
     }
 
-    // Модалка
+    // Demo modal
     const modalBackdrop = document.getElementById('demoModalBackdrop');
     function openDemoModal() {
       playBeep(550, 'triangle');
@@ -668,7 +1172,7 @@
       if (e.key === 'Escape' && modalBackdrop.classList.contains('open')) closeDemoModal();
     });
 
-    // Тост
+    // Toast notifications
     let toastTimer = null;
     function showToast(msg) {
       const toast = document.getElementById('toast');
@@ -681,7 +1185,7 @@
     function copyToken(token, hex) {
       navigator.clipboard.writeText(`var(${token})`).then(() => {
         playBeep(600, 'sine');
-        showToast(`📋 Скопійовано: var(${token}) [${hex}]`);
+        showToast(t('toast.copiedToken', { token, hex }));
       });
     }
 
@@ -689,7 +1193,7 @@
       const txt = document.getElementById('snippetText').innerText;
       navigator.clipboard.writeText(txt).then(() => {
         playBeep(700, 'sine');
-        showToast('📋 Код успішно скопійовано у буфер!');
+        showToast(t('toast.copiedSnippet'));
       });
     }
   </script>

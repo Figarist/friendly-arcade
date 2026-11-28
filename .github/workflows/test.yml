@@ -21,3 +21,5 @@ jobs:
         run: npm run check
       - name: Tokens, colours and WCAG contrast
         run: npm test
+      - name: Check i18n dictionary and HTML bindings
+        run: node scripts/check-i18n.mjs
